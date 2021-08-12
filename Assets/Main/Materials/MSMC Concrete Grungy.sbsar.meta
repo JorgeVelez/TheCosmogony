@@ -17,11 +17,11 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://concrete_simple\" label=\"\" >\n  <presetinput
-      identifier=\"$outputsize\" uid=\"1551704574\" type=\"8\" value=\"9,9\" />\n 
-      <presetinput identifier=\"$randomseed\" uid=\"185546668\" type=\"4\" value=\"4748\"
+      identifier=\"$outputsize\" uid=\"1551704574\" type=\"8\" value=\"10,10\" />\n 
+      <presetinput identifier=\"$randomseed\" uid=\"185546668\" type=\"4\" value=\"7985\"
       />\n  <presetinput identifier=\"concrete_color\" uid=\"646405062\" type=\"2\"
       value=\"0.415094,0.415094,0.415094\" />\n  <presetinput identifier=\"cracks\"
-      uid=\"646405059\" type=\"0\" value=\"0.518\" />\n  <presetinput identifier=\"luminosity\"
+      uid=\"646405059\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"luminosity\"
       uid=\"1495373893\" type=\"0\" value=\"0.539\" />\n </sbspreset>\n"
     shaderName: HDRP/LitTessellation
     materialProperties:
@@ -40,8 +40,8 @@ ScriptedImporter:
         offset: {x: 0, y: 0}
       - name: _BaseColorMap
         texture: {fileID: 4219946860893111771, guid: 60ad4e879d18da04aa0651a89fa8ee5f, type: 3}
-        scale: {x: 1, y: 1}
-        offset: {x: 0, y: 0}
+        scale: {x: 6, y: 6}
+        offset: {x: 0.14, y: 0}
       - name: _BentNormalMap
         texture: {instanceID: 0}
         scale: {x: 1, y: 1}
@@ -226,7 +226,7 @@ ScriptedImporter:
       - name: _HeightTessCenter
         float: 0.5
       - name: _InvTilingScale
-        float: 1
+        float: 0.16666667
       - name: _Ior
         float: 1
       - name: _IridescenceMask
@@ -586,8 +586,8 @@ ScriptedImporter:
     - label: Default
       bOverride: 0
       bLockRatio: 1
-      textureWidth: 512
-      textureHeight: 512
+      textureWidth: 1024
+      textureHeight: 1024
       textureFormatMode: 0
       normalCompressed: 0
       bGenerateOnLoad: 1
