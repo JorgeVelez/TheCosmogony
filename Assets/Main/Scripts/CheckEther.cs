@@ -35,11 +35,11 @@ public class CheckEther : MonoBehaviour
                     Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
                     break;
                 case UnityWebRequest.Result.Success:
-                    Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                    //Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
 					string result =webRequest.downloadHandler.text;
 		result=result.Split(new string[] { "USD\":" }, StringSplitOptions.None)[1];
-		Debug.Log(result);
-		Debug.Log(result.Split('}')[0]);
+		//Debug.Log(result);
+		Debug.Log("Ethereum price right now is $"+result.Split('}')[0]+" ");
                     break;
             }
         }
