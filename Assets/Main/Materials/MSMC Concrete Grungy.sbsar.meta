@@ -21,7 +21,7 @@ ScriptedImporter:
       <presetinput identifier=\"$randomseed\" uid=\"185546668\" type=\"4\" value=\"3145\"
       />\n  <presetinput identifier=\"concrete_color\" uid=\"646405062\" type=\"2\"
       value=\"0.330189,0.330189,0.330189\" />\n  <presetinput identifier=\"cracks\"
-      uid=\"646405059\" type=\"0\" value=\"0.11\" />\n  <presetinput identifier=\"luminosity\"
+      uid=\"646405059\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"luminosity\"
       uid=\"1495373893\" type=\"0\" value=\"0.539\" />\n </sbspreset>\n"
     shaderName: HDRP/LitTessellation
     materialProperties:
