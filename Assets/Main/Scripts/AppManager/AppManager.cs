@@ -9,7 +9,7 @@ public class AppManager : MonoBehaviour
     {
         Application.targetFrameRate =-1;
         QualitySettings.vSyncCount = 0;
-         Screen.SetResolution(1440  , 3440, true);
+         Screen.SetResolution(2160  , 3440, true);
         
     }
 
