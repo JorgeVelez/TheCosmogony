@@ -20,9 +20,10 @@ ScriptedImporter:
       identifier=\"$outputsize\" uid=\"1551704574\" type=\"8\" value=\"9,9\" />\n 
       <presetinput identifier=\"$randomseed\" uid=\"185546668\" type=\"4\" value=\"4748\"
       />\n  <presetinput identifier=\"concrete_color\" uid=\"646405062\" type=\"2\"
-      value=\"1,0.561321,0.765375\" />\n  <presetinput identifier=\"cracks\" uid=\"646405059\"
-      type=\"0\" value=\"0.518\" />\n  <presetinput identifier=\"luminosity\" uid=\"1495373893\"
-      type=\"0\" value=\"0.539\" />\n </sbspreset>\n"
+      value=\"0.945098,0.576471,0.619558\" />\n  <presetinput identifier=\"cracks\"
+      uid=\"646405059\" type=\"0\" value=\"0.444\" />\n  <presetinput identifier=\"luminosity\"
+      uid=\"1495373893\" type=\"0\" value=\"0.539\" />\n  <presetinput identifier=\"ao_spreading\"
+      uid=\"550964173\" type=\"0\" value=\"0.038\" />\n </sbspreset>\n"
     shaderName: HDRP/LitTessellation
     materialProperties:
       shader: {fileID: 4800000, guid: 756bac9090102564582875f4c7e30202, type: 3}

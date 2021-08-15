@@ -20,9 +20,15 @@ ScriptedImporter:
       identifier=\"$outputsize\" uid=\"1551704574\" type=\"8\" value=\"9,9\" />\n 
       <presetinput identifier=\"$randomseed\" uid=\"185546668\" type=\"4\" value=\"4748\"
       />\n  <presetinput identifier=\"concrete_color\" uid=\"646405062\" type=\"2\"
-      value=\"1,0.372642,0.378601\" />\n  <presetinput identifier=\"cracks\" uid=\"646405059\"
-      type=\"0\" value=\"0.518\" />\n  <presetinput identifier=\"luminosity\" uid=\"1495373893\"
-      type=\"0\" value=\"0.539\" />\n </sbspreset>\n"
+      value=\"0.332859,0.937255,0.929412\" />\n  <presetinput identifier=\"cracks\"
+      uid=\"646405059\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"luminosity\"
+      uid=\"1495373893\" type=\"0\" value=\"0.445\" />\n  <presetinput identifier=\"contrast\"
+      uid=\"646386046\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"saturation\"
+      uid=\"1495373904\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"normal_intensity\"
+      uid=\"1495295780\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"height_range\"
+      uid=\"554083034\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"height_position\"
+      uid=\"554083028\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"ao_spreading\"
+      uid=\"550964173\" type=\"0\" value=\"0.544\" />\n </sbspreset>\n"
     shaderName: HDRP/LitTessellation
     materialProperties:
       shader: {fileID: 4800000, guid: 756bac9090102564582875f4c7e30202, type: 3}
@@ -547,7 +553,7 @@ ScriptedImporter:
     - textureName: ConcretePastelTeal - baseColor
       wrapMode: 0
       filterMode: 1
-      aniso: 1
+      aniso: 0
     - textureName: ConcretePastelTeal - specular
       wrapMode: 0
       filterMode: 1

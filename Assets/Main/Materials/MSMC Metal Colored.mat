@@ -22,10 +22,10 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MSMC Metal Colored
   m_Shader: {fileID: -6465566751694194690, guid: ba457f631e6a30b4bab95457edfe7e0b, type: 3}
-  m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT _DOUBLESIDED_ON
+  m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2225
   stringTagMap:
     MotionVector: User
@@ -58,7 +58,7 @@ Material:
     - Vector1_15f075797d9f43639a81333e6b614b64: 0.548
     - Vector1_2c818f9fb93943edbea341952ba6d833: 1
     - Vector1_77b74dc0153d498d8e600ceb72660933: 0
-    - Vector1_c81711d60a72487691c00cde1d166468: 0.892
+    - Vector1_c81711d60a72487691c00cde1d166468: 0.825
     - Vector1_d02d3cd8e62c4a338d5f9982db7afcfd: 0
     - Vector1_ed2489e888ba484d9a86de6eff0d26c5: 1
     - _AddPrecomputedVelocity: 0
@@ -68,10 +68,10 @@ Material:
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _BlendMode: 0
-    - _CullMode: 0
-    - _CullModeForward: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
     - _DepthOffsetEnable: 0
-    - _DoubleSidedEnable: 1
+    - _DoubleSidedEnable: 0
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 0
     - _EnableBlendModePreserveSpecularLighting: 1
