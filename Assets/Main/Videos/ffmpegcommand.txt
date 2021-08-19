@@ -1,0 +1,1 @@
+ffmpeg -i vid.mp4 -filter:v "crop=1024:200:0:188" out.mp4

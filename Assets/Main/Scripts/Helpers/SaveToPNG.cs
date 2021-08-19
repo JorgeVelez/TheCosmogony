@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 using System.IO;
 
 public class SaveToPNG : MonoBehaviour
@@ -33,14 +34,17 @@ public class SaveToPNG : MonoBehaviour
 
         // Encode texture into PNG
         byte[] bytes = scrTexture.EncodeToPNG();
-        string path =System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments;
-        path=path+"ScreenShots/ScreenGrab_"+ Screen.width +"x"+ Screen.height+ "_"+System.DateTime.Now+".png";
-         if(!Directory.Exists(path)){    
-                Directory.CreateDirectory(path);
+        string dir =System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments)+"/ScreenShots";
+        string path =dir+"/ScreenGrab_"+ Screen.width +"x"+ Screen.height+ "_"+".png";
+        Debug.Log(path);
+        Debug.Log(dir);
+
+         if(!Directory.Exists(dir)){    
+                Directory.CreateDirectory(dir);
             }
         File.WriteAllBytes( path, bytes);
 
-        Object.Destroy(scrTexture);
+        UnityEngine.Object.Destroy(scrTexture);
         Debug.Log("Screen captured");
     }
 
