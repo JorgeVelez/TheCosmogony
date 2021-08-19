@@ -33,7 +33,12 @@ public class SaveToPNG : MonoBehaviour
 
         // Encode texture into PNG
         byte[] bytes = scrTexture.EncodeToPNG();
-        File.WriteAllBytes( "Builds/ScreenGrab_"+ Screen.width +"x"+ Screen.height+ "_"+System.DateTime.Now+".png", bytes);
+        string path =System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments;
+        path=path+"ScreenShots/ScreenGrab_"+ Screen.width +"x"+ Screen.height+ "_"+System.DateTime.Now+".png";
+         if(!Directory.Exists(path)){    
+                Directory.CreateDirectory(path);
+            }
+        File.WriteAllBytes( path, bytes);
 
         Object.Destroy(scrTexture);
         Debug.Log("Screen captured");
