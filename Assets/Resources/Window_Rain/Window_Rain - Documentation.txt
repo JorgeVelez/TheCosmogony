@@ -1,0 +1,8 @@
+Load "Window_Rain.unity" for an example scene, or simply drag Window_Rain from the Prefabs folder (in the Project window) into the Hierarchy window. Then move and resize the effect to roughly fill your chosen window.
+
+
+Have fun!
+
+Thanks for purchasing this asset, please consider rating or writing a review about it. If you have any questions then please get in touch at bendurrant@rivermillstudios.com
+
+

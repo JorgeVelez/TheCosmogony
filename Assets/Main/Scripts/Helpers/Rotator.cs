@@ -2,19 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Rotator : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public bool XAxis=false;
+    public float XSpeed=1;
+    public bool YAxis=false;
+    public float YSpeed=1;
+    public bool ZAxis=false;
+    public float ZSpeed=1;
+
+
+bool  GlobalStop=false;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0,.6f,0, Space.Self);
+        if(!GlobalStop)
+        transform.Rotate(XAxis?XSpeed:0, YAxis?YSpeed:0, ZAxis?ZSpeed:0, Space.Self);
 
     }
 }

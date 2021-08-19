@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &505600367171975958
+--- !u!1 &2309918960612310965
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6232672627924941660}
-  - component: {fileID: 100132035782965695}
-  - component: {fileID: 8543476744438111616}
+  - component: {fileID: 8510040287932828515}
+  - component: {fileID: 1259334617496492644}
+  - component: {fileID: 3061639717610443749}
   m_Layer: 0
-  m_Name: Aloe Vera_LOD3_Var11_ve4tbbrha
+  m_Name: Aloe Vera_LOD0_Var11_ve4tbbrha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &6232672627924941660
+--- !u!4 &8510040287932828515
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505600367171975958}
+  m_GameObject: {fileID: 2309918960612310965}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5172284468259802173}
-  m_RootOrder: 3
+  m_Father: {fileID: 6980597088064846171}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &100132035782965695
+--- !u!33 &1259334617496492644
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505600367171975958}
-  m_Mesh: {fileID: -2108104319723818613, guid: 01ca3300168d77440b838a6d8e39ef57, type: 3}
---- !u!23 &8543476744438111616
+  m_GameObject: {fileID: 2309918960612310965}
+  m_Mesh: {fileID: 406751800211501593, guid: 66bc21e44c18efb4f85c888dbf1d79f1, type: 3}
+--- !u!23 &3061639717610443749
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505600367171975958}
+  m_GameObject: {fileID: 2309918960612310965}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &2154875692177127800
+--- !u!1 &2735003008185389769
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,45 +89,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 309722511834278894}
-  - component: {fileID: 7554169808163825073}
-  - component: {fileID: 5938253783333791330}
+  - component: {fileID: 6085247475128040251}
+  - component: {fileID: 7879233847552457608}
+  - component: {fileID: 8360362582747628641}
   m_Layer: 0
-  m_Name: Aloe Vera_LOD1_Var11_ve4tbbrha
+  m_Name: Aloe Vera_LOD2_Var11_ve4tbbrha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &309722511834278894
+--- !u!4 &6085247475128040251
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154875692177127800}
+  m_GameObject: {fileID: 2735003008185389769}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5172284468259802173}
-  m_RootOrder: 1
+  m_Father: {fileID: 6980597088064846171}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7554169808163825073
+--- !u!33 &7879233847552457608
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154875692177127800}
-  m_Mesh: {fileID: -5118900969860261410, guid: 3a05b99593bb3c2448c2b117b3a3b8b6, type: 3}
---- !u!23 &5938253783333791330
+  m_GameObject: {fileID: 2735003008185389769}
+  m_Mesh: {fileID: -4504282088140230065, guid: 279737fbfe1336440a4ecce476e48c10, type: 3}
+--- !u!23 &8360362582747628641
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154875692177127800}
+  m_GameObject: {fileID: 2735003008185389769}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -162,7 +162,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4943850442225004602
+--- !u!1 &3010986135291329133
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,8 +170,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5172284468259802173}
-  - component: {fileID: 4896318090327536760}
+  - component: {fileID: 6980597088064846171}
+  - component: {fileID: 8849009908734925702}
   m_Layer: 0
   m_Name: Aloe Vera_ve4tbbrha_Var11
   m_TagString: Untagged
@@ -179,32 +179,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &5172284468259802173
+--- !u!4 &6980597088064846171
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4943850442225004602}
+  m_GameObject: {fileID: 3010986135291329133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7784405530889044762}
-  - {fileID: 309722511834278894}
-  - {fileID: 5029961040534529479}
-  - {fileID: 6232672627924941660}
-  - {fileID: 2124361887867311763}
+  - {fileID: 8510040287932828515}
+  - {fileID: 6753362902410512750}
+  - {fileID: 6085247475128040251}
+  - {fileID: 5888504689937673547}
+  - {fileID: 9092799349500076084}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &4896318090327536760
+--- !u!205 &8849009908734925702
 LODGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4943850442225004602}
+  m_GameObject: {fileID: 3010986135291329133}
   serializedVersion: 2
   m_LocalReferencePoint: {x: -0.076928616, y: 0.32436258, z: -0.0012153238}
   m_Size: 1.1071517
@@ -215,25 +215,25 @@ LODGroup:
   - screenRelativeHeight: 0.5
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 7944815104611654527}
+    - renderer: {fileID: 3061639717610443749}
   - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 5938253783333791330}
+    - renderer: {fileID: 4171724472336150181}
   - screenRelativeHeight: 0.2
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 3400865104914622391}
+    - renderer: {fileID: 8360362582747628641}
   - screenRelativeHeight: 0.1
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 8543476744438111616}
+    - renderer: {fileID: 6116800933428399976}
   - screenRelativeHeight: 0.01
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 5594912200524040489}
+    - renderer: {fileID: 1207820631012774682}
   m_Enabled: 1
---- !u!1 &5459158942168975494
+--- !u!1 &6318440629337478381
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,45 +241,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5029961040534529479}
-  - component: {fileID: 4765883464431883320}
-  - component: {fileID: 3400865104914622391}
+  - component: {fileID: 6753362902410512750}
+  - component: {fileID: 5664442199012124713}
+  - component: {fileID: 4171724472336150181}
   m_Layer: 0
-  m_Name: Aloe Vera_LOD2_Var11_ve4tbbrha
+  m_Name: Aloe Vera_LOD1_Var11_ve4tbbrha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &5029961040534529479
+--- !u!4 &6753362902410512750
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5459158942168975494}
+  m_GameObject: {fileID: 6318440629337478381}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5172284468259802173}
-  m_RootOrder: 2
+  m_Father: {fileID: 6980597088064846171}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4765883464431883320
+--- !u!33 &5664442199012124713
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5459158942168975494}
-  m_Mesh: {fileID: -4504282088140230065, guid: 279737fbfe1336440a4ecce476e48c10, type: 3}
---- !u!23 &3400865104914622391
+  m_GameObject: {fileID: 6318440629337478381}
+  m_Mesh: {fileID: -5118900969860261410, guid: 3a05b99593bb3c2448c2b117b3a3b8b6, type: 3}
+--- !u!23 &4171724472336150181
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5459158942168975494}
+  m_GameObject: {fileID: 6318440629337478381}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -314,7 +314,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8041196526173661935
+--- !u!1 &6632488904675981260
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,9 +322,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2124361887867311763}
-  - component: {fileID: 1949940606665342458}
-  - component: {fileID: 5594912200524040489}
+  - component: {fileID: 9092799349500076084}
+  - component: {fileID: 3349332178510771658}
+  - component: {fileID: 1207820631012774682}
   m_Layer: 0
   m_Name: Aloe Vera_LOD4_Var11_ve4tbbrha
   m_TagString: Untagged
@@ -332,35 +332,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &2124361887867311763
+--- !u!4 &9092799349500076084
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8041196526173661935}
+  m_GameObject: {fileID: 6632488904675981260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5172284468259802173}
+  m_Father: {fileID: 6980597088064846171}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1949940606665342458
+--- !u!33 &3349332178510771658
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8041196526173661935}
+  m_GameObject: {fileID: 6632488904675981260}
   m_Mesh: {fileID: -4939069935338416959, guid: 5a86b4af7f5d7194a9fcd78ccfd8daa4, type: 3}
---- !u!23 &5594912200524040489
+--- !u!23 &1207820631012774682
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8041196526173661935}
+  m_GameObject: {fileID: 6632488904675981260}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -395,7 +395,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8889371386990316511
+--- !u!1 &8798050687808030156
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -403,45 +403,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7784405530889044762}
-  - component: {fileID: 2942596841998964810}
-  - component: {fileID: 7944815104611654527}
+  - component: {fileID: 5888504689937673547}
+  - component: {fileID: 2374032097293988842}
+  - component: {fileID: 6116800933428399976}
   m_Layer: 0
-  m_Name: Aloe Vera_LOD0_Var11_ve4tbbrha
+  m_Name: Aloe Vera_LOD3_Var11_ve4tbbrha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &7784405530889044762
+--- !u!4 &5888504689937673547
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8889371386990316511}
+  m_GameObject: {fileID: 8798050687808030156}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5172284468259802173}
-  m_RootOrder: 0
+  m_Father: {fileID: 6980597088064846171}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2942596841998964810
+--- !u!33 &2374032097293988842
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8889371386990316511}
-  m_Mesh: {fileID: 406751800211501593, guid: 66bc21e44c18efb4f85c888dbf1d79f1, type: 3}
---- !u!23 &7944815104611654527
+  m_GameObject: {fileID: 8798050687808030156}
+  m_Mesh: {fileID: -2108104319723818613, guid: 01ca3300168d77440b838a6d8e39ef57, type: 3}
+--- !u!23 &6116800933428399976
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8889371386990316511}
+  m_GameObject: {fileID: 8798050687808030156}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1

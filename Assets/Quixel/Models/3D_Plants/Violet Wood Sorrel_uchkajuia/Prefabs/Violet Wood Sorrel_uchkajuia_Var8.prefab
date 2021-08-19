@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1944497517310847359
+--- !u!1 &2577698429148024667
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5876020088901748043}
-  - component: {fileID: 1727969679063941653}
-  - component: {fileID: 1751155986982597448}
+  - component: {fileID: 352735633504674473}
+  - component: {fileID: 2016273700194595724}
+  - component: {fileID: 5412949439296791926}
   m_Layer: 0
-  m_Name: Violet Wood Sorrel_LOD2_Var8_uchkajuia
+  m_Name: Violet Wood Sorrel_LOD1_Var8_uchkajuia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &5876020088901748043
+--- !u!4 &352735633504674473
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944497517310847359}
+  m_GameObject: {fileID: 2577698429148024667}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3938659914132467254}
-  m_RootOrder: 2
+  m_Father: {fileID: 5573960206638743697}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1727969679063941653
+--- !u!33 &2016273700194595724
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944497517310847359}
-  m_Mesh: {fileID: 9057303541036309951, guid: 18ac63ee92deeed438a47027c589dd6a, type: 3}
---- !u!23 &1751155986982597448
+  m_GameObject: {fileID: 2577698429148024667}
+  m_Mesh: {fileID: -4904520429195602971, guid: 264f99cce49d86549bcb4896ac05a696, type: 3}
+--- !u!23 &5412949439296791926
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944497517310847359}
+  m_GameObject: {fileID: 2577698429148024667}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &6198529904070818532
+--- !u!1 &3942648336050071214
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,9 +89,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4008631000608497191}
-  - component: {fileID: 8128091478043860229}
-  - component: {fileID: 4147900177599053391}
+  - component: {fileID: 1859790359396085290}
+  - component: {fileID: 9081694267736115304}
+  - component: {fileID: 3520666933627866467}
   m_Layer: 0
   m_Name: Violet Wood Sorrel_LOD3_Var8_uchkajuia
   m_TagString: Untagged
@@ -99,35 +99,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &4008631000608497191
+--- !u!4 &1859790359396085290
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6198529904070818532}
+  m_GameObject: {fileID: 3942648336050071214}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3938659914132467254}
+  m_Father: {fileID: 5573960206638743697}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8128091478043860229
+--- !u!33 &9081694267736115304
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6198529904070818532}
+  m_GameObject: {fileID: 3942648336050071214}
   m_Mesh: {fileID: -2463691623067727096, guid: 33264c6f6db75d44887f30144c9a86ef, type: 3}
---- !u!23 &4147900177599053391
+--- !u!23 &3520666933627866467
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6198529904070818532}
+  m_GameObject: {fileID: 3942648336050071214}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -162,7 +162,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7157875023565712682
+--- !u!1 &4030138767649935273
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,45 +170,111 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1997993316869478054}
-  - component: {fileID: 3967378925821944554}
-  - component: {fileID: 2588939783709378809}
+  - component: {fileID: 5573960206638743697}
+  - component: {fileID: 4937675704747448730}
   m_Layer: 0
-  m_Name: Violet Wood Sorrel_LOD0_Var8_uchkajuia
+  m_Name: Violet Wood Sorrel_uchkajuia_Var8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &1997993316869478054
+--- !u!4 &5573960206638743697
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7157875023565712682}
+  m_GameObject: {fileID: 4030138767649935273}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6972023707977801620}
+  - {fileID: 352735633504674473}
+  - {fileID: 7190466168198674232}
+  - {fileID: 1859790359396085290}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!205 &4937675704747448730
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4030138767649935273}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.07353534, y: 0.08924993, z: -0.016870886}
+  m_Size: 0.48380426
+  m_FadeMode: 1
+  m_AnimateCrossFading: 1
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.5
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3285901050740360512}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5412949439296791926}
+  - screenRelativeHeight: 0.18
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7770759559417821456}
+  - screenRelativeHeight: 0.01
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3520666933627866467}
+  m_Enabled: 1
+--- !u!1 &5055194934373507481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7190466168198674232}
+  - component: {fileID: 7486920045896361041}
+  - component: {fileID: 7770759559417821456}
+  m_Layer: 0
+  m_Name: Violet Wood Sorrel_LOD2_Var8_uchkajuia
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &7190466168198674232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055194934373507481}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3938659914132467254}
-  m_RootOrder: 0
+  m_Father: {fileID: 5573960206638743697}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3967378925821944554
+--- !u!33 &7486920045896361041
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7157875023565712682}
-  m_Mesh: {fileID: -8148267582220167844, guid: c405c5ca1a3a5554e92a5a4a45703e87, type: 3}
---- !u!23 &2588939783709378809
+  m_GameObject: {fileID: 5055194934373507481}
+  m_Mesh: {fileID: 9057303541036309951, guid: 18ac63ee92deeed438a47027c589dd6a, type: 3}
+--- !u!23 &7770759559417821456
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7157875023565712682}
+  m_GameObject: {fileID: 5055194934373507481}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -243,7 +309,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7636033326938514545
+--- !u!1 &7328739719584232669
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,111 +317,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3938659914132467254}
-  - component: {fileID: 6639754466222294811}
+  - component: {fileID: 6972023707977801620}
+  - component: {fileID: 4442751469583639129}
+  - component: {fileID: 3285901050740360512}
   m_Layer: 0
-  m_Name: Violet Wood Sorrel_uchkajuia_Var8
+  m_Name: Violet Wood Sorrel_LOD0_Var8_uchkajuia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &3938659914132467254
+--- !u!4 &6972023707977801620
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7636033326938514545}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1997993316869478054}
-  - {fileID: 4071018681723893277}
-  - {fileID: 5876020088901748043}
-  - {fileID: 4008631000608497191}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &6639754466222294811
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7636033326938514545}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.07353534, y: 0.08924993, z: -0.016870886}
-  m_Size: 0.48380426
-  m_FadeMode: 1
-  m_AnimateCrossFading: 1
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.5
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2588939783709378809}
-  - screenRelativeHeight: 0.3
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 52639299364572285}
-  - screenRelativeHeight: 0.18
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 1751155986982597448}
-  - screenRelativeHeight: 0.01
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 4147900177599053391}
-  m_Enabled: 1
---- !u!1 &8656314206888866228
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4071018681723893277}
-  - component: {fileID: 958299248129628826}
-  - component: {fileID: 52639299364572285}
-  m_Layer: 0
-  m_Name: Violet Wood Sorrel_LOD1_Var8_uchkajuia
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!4 &4071018681723893277
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8656314206888866228}
+  m_GameObject: {fileID: 7328739719584232669}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3938659914132467254}
-  m_RootOrder: 1
+  m_Father: {fileID: 5573960206638743697}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &958299248129628826
+--- !u!33 &4442751469583639129
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8656314206888866228}
-  m_Mesh: {fileID: -4904520429195602971, guid: 264f99cce49d86549bcb4896ac05a696, type: 3}
---- !u!23 &52639299364572285
+  m_GameObject: {fileID: 7328739719584232669}
+  m_Mesh: {fileID: -8148267582220167844, guid: c405c5ca1a3a5554e92a5a4a45703e87, type: 3}
+--- !u!23 &3285901050740360512
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8656314206888866228}
+  m_GameObject: {fileID: 7328739719584232669}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
