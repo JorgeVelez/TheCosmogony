@@ -60,6 +60,9 @@ sliders.Add(sli);
 
         float currentValue=((val/timeperForecast)-currentVol);
         sliders[currentVol].value=currentValue;
+
+        for (int j = 0; j < icons.Count; j++)
+            icons[j].SetActive(false);
         icons[currentVol].SetActive(true);
 
         if(currentVol>0){
@@ -71,8 +74,7 @@ sliders.Add(sli);
         }
 
         }
-        for (int j = 0; j < icons.Count; j++)
-                    icons[j].SetActive(false);
+        
 
         });
 
