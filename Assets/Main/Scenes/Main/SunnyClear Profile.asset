@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51a78e223a2e504bb88a059b55229ea, type: 3}
   m_Name: WhiteBalance
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7649d9368d3a5c4ab8ad01a63e04962, type: 3}
   m_Name: ChannelMixer
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   redOutRedIn:
     m_OverrideState: 1
@@ -453,12 +453,12 @@ MonoBehaviour:
     max: 200
   redOutGreenIn:
     m_OverrideState: 1
-    m_Value: 125
+    m_Value: 0
     min: -200
     max: 200
   redOutBlueIn:
     m_OverrideState: 1
-    m_Value: 116
+    m_Value: 0
     min: -200
     max: 200
   greenOutRedIn:
@@ -491,7 +491,7 @@ MonoBehaviour:
     m_Value: 100
     min: -200
     max: 200
-  m_SelectedChannel: 0
+  m_SelectedChannel: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
