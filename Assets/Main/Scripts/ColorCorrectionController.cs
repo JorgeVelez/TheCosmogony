@@ -24,18 +24,26 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             sli.transform.Find("Label").GetComponent<Text>().text=volumes[i].gameObject.name;
 
             Volume tempVol=volumes[i];
+            GameObject tempIcon=icons[i];
             volumes[i].weight=0;
 
             sli.onValueChanged.AddListener((val)=>{
             sli.transform.Find("Value").GetComponent<Text>().text=val.ToString("F2");
                 tempVol.weight=val;
-                MeshRenderer renderer = icons[i].GetComponent(typeof(MeshRenderer)) as MeshRenderer;
-                renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f, val));
+                for (int j = 0; j < icons.Count; j++)
+                    icons[j].SetActive(false);
+
+                if(val>.5f)
+                tempIcon.SetActive(true);
+
+                //MeshRenderer renderer = icons[i].GetComponent(typeof(MeshRenderer)) as MeshRenderer;
+                //renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f, val));
             });
         }
 
-                globalSlider.onValueChanged.AddListener((val)=>{
                 globalSlider.transform.Find("Label").GetComponent<Text>().text="Global";
+
+                globalSlider.onValueChanged.AddListener((val)=>{
                 globalSlider.transform.Find("Value").GetComponent<Text>().text=val.ToString("F2");
             });
     }
