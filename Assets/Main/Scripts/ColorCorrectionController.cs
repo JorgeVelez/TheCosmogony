@@ -17,20 +17,20 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     void Start()
     {
-
-
-        foreach (Volume item in volumes)
+        for (int i = 0; i < volumes.Count; i++)
         {
             Slider sli=Instantiate(sliderPrefab, sliderPrefab.transform.parent).GetComponent<Slider>();
             sli.gameObject.SetActive(true);
-            sli.transform.Find("Label").GetComponent<Text>().text=item.gameObject.name;
+            sli.transform.Find("Label").GetComponent<Text>().text=volumes[i].gameObject.name;
 
-            Volume tempVol=item;
-            item.weight=0;
+            Volume tempVol=volumes[i];
+            volumes[i].weight=0;
 
             sli.onValueChanged.AddListener((val)=>{
             sli.transform.Find("Value").GetComponent<Text>().text=val.ToString("F2");
                 tempVol.weight=val;
+                MeshRenderer renderer = icons[i].GetComponent(typeof(MeshRenderer)) as MeshRenderer;
+                renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f, val));
             });
         }
 

@@ -239,16 +239,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51a78e223a2e504bb88a059b55229ea, type: 3}
   m_Name: WhiteBalance
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: -34
     min: -100
     max: 100
   tint:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -51
     min: -100
     max: 100
 --- !u!114 &3965127217383413997
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   rotation:
     m_OverrideState: 1
-    m_Value: 195
+    m_Value: 31
     min: 0
     max: 360
   skyIntensityMode:
@@ -523,7 +523,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 8.8
+    m_Value: 12.65
   multiplier:
     m_OverrideState: 0
     m_Value: 1
