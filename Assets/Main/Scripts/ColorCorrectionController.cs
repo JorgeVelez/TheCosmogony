@@ -18,6 +18,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     public GameObject UI;
 
     public Button PLayBt;
+    public Button PauseBt;
      public InputField iFieldTimePerForecast;
 
     private bool MonitorTime=false;
@@ -38,20 +39,11 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             sli.transform.Find("Label").GetComponent<Text>().text=volumes[i].gameObject.name;
 sliders.Add(sli);
             Volume tempVol=volumes[i];
-            GameObject tempIcon=icons[i];
             volumes[i].weight=0;
 
             sli.onValueChanged.AddListener((val)=>{
             sli.transform.Find("Value").GetComponent<Text>().text=val.ToString("F2");
                 tempVol.weight=val;
-                for (int j = 0; j < icons.Count; j++)
-                    icons[j].SetActive(false);
-
-                if(val>.5f)
-                tempIcon.SetActive(true);
-
-                //MeshRenderer renderer = icons[i].GetComponent(typeof(MeshRenderer)) as MeshRenderer;
-                //renderer.material.SetColor("_BaseColor", new Color(1.0f, 0.0f, 0.0f, val));
             });
         }
 
@@ -63,16 +55,29 @@ sliders.Add(sli);
         globalSlider.onValueChanged.AddListener((val)=>{
         globalSlider.transform.Find("Value").GetComponent<Text>().text=val.ToString("F2");
 
-        int currentVol=Mathf.FloorToInt(val/volumes.Count);
+        int currentVol=Mathf.FloorToInt(val/timeperForecast);
         //volumes[currentVol].weight=val-currentVol;
-        sliders[currentVol].value=((val/volumes.Count)-currentVol);
 
-        if(currentVol>0)
-        sliders[currentVol-1].value=1-((val/volumes.Count)-currentVol);
+        float currentValue=((val/timeperForecast)-currentVol);
+        sliders[currentVol].value=currentValue;
+        icons[currentVol].SetActive(true);
+
+        if(currentVol>0){
+        sliders[currentVol-1].value=1-currentValue;
+        if(sliders[currentVol-1].value>sliders[currentVol].value){
+            icons[currentVol].SetActive(false);
+            icons[currentVol-1].SetActive(true);
+
+        }
+
+        }
+        for (int j = 0; j < icons.Count; j++)
+                    icons[j].SetActive(false);
 
         });
 
         PLayBt.onClick.AddListener(playAnimation);
+        PauseBt.onClick.AddListener(pauseAnimation);
 
         Hide();
     }
@@ -95,6 +100,17 @@ sliders.Add(sli);
     void playAnimation()    
     {
         MonitorTime=true;
+        PLayBt.gameObject.SetActive(false);
+        PauseBt.gameObject.SetActive(true);
+
+    }
+     void pauseAnimation()    
+    {
+        MonitorTime=false;
+        PauseBt.gameObject.SetActive(false);
+        PLayBt.gameObject.SetActive(true);
+
+
     }
 
       internal void toggleVisibility()
