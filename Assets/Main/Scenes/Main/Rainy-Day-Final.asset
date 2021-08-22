@@ -16,12 +16,12 @@ MonoBehaviour:
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 19
     min: -100
     max: 100
   tint:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 3.4
     min: -100
     max: 100
 --- !u!114 &-6768251887242636867
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Cloudy
+  m_Name: Rainy-Day-Final
   m_EditorClassIdentifier: 
   components:
   - {fileID: -6768251887242636867}
@@ -611,7 +611,7 @@ MonoBehaviour:
     max: 200
   greenOutBlueIn:
     m_OverrideState: 1
-    m_Value: -21
+    m_Value: 5
     min: -200
     max: 200
   blueOutRedIn:
@@ -629,4 +629,4 @@ MonoBehaviour:
     m_Value: 100
     min: -200
     max: 200
-  m_SelectedChannel: 2
+  m_SelectedChannel: 1
