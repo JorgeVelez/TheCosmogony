@@ -10,7 +10,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     private float totalTime = 0;
     private bool MonitorTime = false;
 
-    enum DayState {ComienzoDia, Dia, ComienzoNoche, Noche};
+    enum DayState { ComienzoDia, Dia, ComienzoNoche, Noche };
 
     private DayState estado;
     private int currentVol;
@@ -21,6 +21,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     private float DuracionNoche;
     private float DuracionTransicion;
 
+    public Text StateLabel;
+    public Text WeatherLabel;
     public InputField iFieldDuracionDia;
 
     public InputField iFieldDuracionNoche;
@@ -30,8 +32,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     public GameObject sliderPrefab;
     public Slider globalSlider;
     public GameObject UI;
-    public Button PLayBt;
-    public Button PauseBt;
+    public Button RestartBt;
 
     public List<Volume> volumes;
     private List<Slider> sliders = new List<Slider>();
@@ -40,11 +41,51 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     void Start()
     {
-        DuracionDia = float.Parse(iFieldDuracionDia.text);
+        if (PlayerPrefs.HasKey("DuracionDia"))
+        {
+            iFieldDuracionDia.text = PlayerPrefs.GetString("DuracionDia");
+        }
+        if (PlayerPrefs.HasKey("DuracionNoche"))
+        {
+            iFieldDuracionNoche.text = PlayerPrefs.GetString("DuracionNoche");
+        }
+        if (PlayerPrefs.HasKey("DuracionTransicion"))
+        {
+            iFieldDuracionTransicion.text = PlayerPrefs.GetString("DuracionTransicion");
+        }
 
-        DuracionNoche = float.Parse(iFieldDuracionNoche.text);
 
-        DuracionTransicion = float.Parse(iFieldDuracionTransicion.text);
+        iFieldDuracionDia.onValueChanged.AddListener((val) =>
+        {
+            PlayerPrefs.SetString("DuracionDia", iFieldDuracionDia.text);
+            iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+
+        });
+
+        iFieldDuracionNoche.onValueChanged.AddListener((val) =>
+        {
+            PlayerPrefs.SetString("DuracionNoche", iFieldDuracionNoche.text);
+            iFieldDuracionNoche.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+
+
+        });
+
+        iFieldDuracionTransicion.onValueChanged.AddListener((val) =>
+        {
+            PlayerPrefs.SetString("DuracionTransicion", iFieldDuracionTransicion.text);
+            iFieldDuracionTransicion.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+
+
+        });
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        ArrancaCalculos();
+        
+            iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+            iFieldDuracionNoche.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+            iFieldDuracionTransicion.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+
 
         for (int i = 0; i < volumes.Count; i++)
         {
@@ -57,100 +98,155 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
             sli.onValueChanged.AddListener((val) =>
             {
-                sli.transform.Find("Value").GetComponent<Text>().text = val.ToString("F2");
+                sli.transform.Find("Value").GetComponent<Text>().text = val.ToString("F4");
                 //tempVol.weight=val;
             });
         }
 
-        totalTime = DuracionDia + DuracionNoche;
 
         globalSlider.transform.Find("Label").GetComponent<Text>().text = "Global";
-        globalSlider.maxValue = totalTime;
 
-        currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
-        GenerateNextWeather();
-        previousVol=-1;
-        estado=DayState.ComienzoDia;
 
         //////////////////////////////////////////////////////////////////////
         globalSlider.onValueChanged.AddListener((hora) =>
         {
-            TimeSpan time = TimeSpan.FromHours(hora);
-            globalSlider.transform.Find("Value").GetComponent<Text>().text =time.ToString(@"hh\:mm");
+            globalSlider.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(hora).ToString(@"hh\:mm\:ss") + "/" + TimeSpan.FromSeconds(totalTime).ToString(@"hh\:mm\:ss");
 
-            if(estado==DayState.ComienzoDia && hora<DuracionTransicion){
-                //hora/DuracionTransicion;
-            }
-
-            /* float currentValue = ((val) - currentVol);
-            sliders[currentVol].value = currentValue;
-
-            for (int j = 0; j < icons.Count; j++)
-                icons[j].SetActive(false);
-            icons[currentVol].SetActive(true);
-
-            if (currentVol > 0)
+            if (estado == DayState.ComienzoDia && hora < DuracionTransicion)
             {
-                sliders[currentVol - 1].value = 1 - currentValue;
-                if (sliders[currentVol - 1].value > sliders[currentVol].value)
-                {
-                    icons[currentVol].SetActive(false);
-                    icons[currentVol - 1].SetActive(true);
+                float valVol = hora / DuracionTransicion;
+                volumes[currentVol * 2].weight = valVol;
+                sliders[currentVol * 2].value = valVol;
 
+                if (previousVol >= 0)
+                {
+                    volumes[(previousVol * 2)+1].weight = 1 - valVol;
+                    sliders[(previousVol * 2)+1].value = 1 - valVol;
                 }
 
-            } */
+            }
+            else if (estado == DayState.ComienzoDia && hora >= DuracionTransicion)
+            {
+                estado = DayState.Dia;
+                StateLabel.text = estado.ToString();
+            }
+            else if (estado == DayState.Dia && hora < DuracionDia)
+            {
+                volumes[currentVol * 2].weight = 1;
+                sliders[currentVol * 2].value = 1;
 
+                if (previousVol >= 0)
+                {
+                    volumes[(previousVol * 2)+1].weight = 0;
+                    sliders[(previousVol * 2)+1].value = 0;
+                }
+            }
+            else if (estado == DayState.Dia && hora >= DuracionDia)
+            {
+                estado = DayState.ComienzoNoche;
+                StateLabel.text = estado.ToString();
+                WeatherLabel.text = volumes[(currentVol * 2)+1].gameObject.name;
+
+            }
+            else if (estado == DayState.ComienzoNoche && hora < (DuracionDia + DuracionTransicion))
+            {
+                float valVol = (hora - DuracionDia) / DuracionTransicion;
+
+                volumes[(currentVol * 2)+1].weight = valVol;
+                sliders[(currentVol * 2)+1].value = valVol;
+
+                volumes[currentVol * 2].weight = 1 - valVol;
+                sliders[currentVol * 2].value = 1 - valVol;
+            }
+            else if (estado == DayState.ComienzoNoche && hora >= (DuracionDia + DuracionTransicion))
+            {
+                estado = DayState.Noche;
+                StateLabel.text = estado.ToString();
+            }
+            else if (estado == DayState.Noche && hora < DuracionNoche + DuracionDia)
+            {
+                volumes[(currentVol * 2)+1].weight = 1;
+                sliders[(currentVol * 2)+1].value = 1;
+
+                volumes[currentVol * 2].weight = 0;
+                sliders[currentVol * 2].value = 0;
+            }
+            else if (estado == DayState.Noche && hora >= DuracionNoche + DuracionDia)
+            {
+                estado = DayState.ComienzoDia;
+                StateLabel.text = estado.ToString();
+
+                previousVol = currentVol;
+                while (currentVol == previousVol)
+                {
+                    currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
+                }
+                elapsedTime=0;
+                WeatherLabel.text = volumes[currentVol * 2].gameObject.name;
+
+            }
 
         });
         ///////////////////////////////////////////////////////////
 
-        PLayBt.onClick.AddListener(playAnimation);
-        PauseBt.onClick.AddListener(pauseAnimation);
+        
+
+        RestartBt.onClick.AddListener(RestartAnimation);
 
         Hide();
+
+        MonitorTime=true;
     }
 
-    void GenerateNextWeather()
+    void ArrancaCalculos()
     {
-        nextVol = UnityEngine.Random.Range(0, volumes.Count / 2);
-        while (nextVol == currentVol)
-        {
-            nextVol = UnityEngine.Random.Range(0, volumes.Count / 2);
-        }
+        DuracionDia = float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f;
 
+        DuracionNoche = float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f;
+
+        DuracionTransicion = float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f;
+
+        totalTime = DuracionDia + DuracionNoche;
+
+        globalSlider.maxValue = totalTime;
+
+
+        currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
+
+        previousVol = -1;
+        elapsedTime=0;
+        estado = DayState.ComienzoDia;
+
+        WeatherLabel.text = volumes[currentVol*2].gameObject.name;
+        StateLabel.text = estado.ToString();
+
+        
 
     }
+
     void Update()
     {
+
+
         if (MonitorTime)
         {
             elapsedTime += Time.deltaTime;
 
             globalSlider.value = elapsedTime;
 
-            if (elapsedTime > totalTime){
-                MonitorTime = false;
-                estado=DayState.ComienzoDia;
-                elapsedTime=0;
-            }
+          
         }
     }
 
-    void playAnimation()
+    void RestartAnimation()
     {
-        MonitorTime = true;
-        PLayBt.gameObject.SetActive(false);
-        PauseBt.gameObject.SetActive(true);
+        ArrancaCalculos();
 
-    }
-    void pauseAnimation()
-    {
-        MonitorTime = false;
-        PauseBt.gameObject.SetActive(false);
-        PLayBt.gameObject.SetActive(true);
-
-
+        for (int i = 0; i < volumes.Count; i++)
+        {
+                        volumes[i].weight = 0;
+                        sliders[i].value = 0;
+        }
     }
 
     internal void toggleVisibility()
