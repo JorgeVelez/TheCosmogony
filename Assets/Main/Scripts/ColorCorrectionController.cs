@@ -41,6 +41,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     void Start()
     {
+        PlayerPrefs.DeleteAll();
+
         if (PlayerPrefs.HasKey("DuracionDia"))
         {
             iFieldDuracionDia.text = PlayerPrefs.GetString("DuracionDia");
