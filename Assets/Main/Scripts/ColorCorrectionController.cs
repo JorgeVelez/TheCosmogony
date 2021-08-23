@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     public Slider globalSlider;
     public GameObject UI;
     public Button RestartBt;
+    public Button DeltetePrefsBt;
 
     public List<Volume> volumes;
     private List<Slider> sliders = new List<Slider>();
@@ -41,7 +43,9 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     void Start()
     {
-        PlayerPrefs.DeleteAll();
+
+         RestartBt.onClick.AddListener(RestartAnimation);
+        DeltetePrefsBt.onClick.AddListener(restorePlayerPrefDefaults);
 
         if (PlayerPrefs.HasKey("DuracionDia"))
         {
@@ -59,23 +63,49 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         iFieldDuracionDia.onValueChanged.AddListener((val) =>
         {
-            PlayerPrefs.SetString("DuracionDia", iFieldDuracionDia.text);
-            iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+            try
+            {
+                iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+                PlayerPrefs.SetString("DuracionDia", iFieldDuracionDia.text);
+                Debug.Log("done");
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("illegit");
+
+            }
 
         });
 
         iFieldDuracionNoche.onValueChanged.AddListener((val) =>
         {
-            PlayerPrefs.SetString("DuracionNoche", iFieldDuracionNoche.text);
-            iFieldDuracionNoche.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
 
+            try
+            {
+                iFieldDuracionNoche.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+                PlayerPrefs.SetString("DuracionNoche", iFieldDuracionNoche.text);
+                Debug.Log("done");
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("illegit");
 
+            }
         });
 
         iFieldDuracionTransicion.onValueChanged.AddListener((val) =>
         {
-            PlayerPrefs.SetString("DuracionTransicion", iFieldDuracionTransicion.text);
-            iFieldDuracionTransicion.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+            try
+            {
+                iFieldDuracionTransicion.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+                PlayerPrefs.SetString("DuracionTransicion", iFieldDuracionTransicion.text);
+                Debug.Log("done");
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("illegit");
+
+            }
 
 
         });
@@ -83,10 +113,10 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         //////////////////////////////////////////////////////////////////////////////////////////////////
         ArrancaCalculos();
-        
-            iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
-            iFieldDuracionNoche.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
-            iFieldDuracionTransicion.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+
+        iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+        iFieldDuracionNoche.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+        iFieldDuracionTransicion.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
 
 
         for (int i = 0; i < volumes.Count; i++)
@@ -120,10 +150,12 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 volumes[currentVol * 2].weight = valVol;
                 sliders[currentVol * 2].value = valVol;
 
+
+
                 if (previousVol >= 0)
                 {
-                    volumes[(previousVol * 2)+1].weight = 1 - valVol;
-                    sliders[(previousVol * 2)+1].value = 1 - valVol;
+                    volumes[(previousVol * 2) + 1].weight = 1 - valVol;
+                    sliders[(previousVol * 2) + 1].value = 1 - valVol;
                 }
 
             }
@@ -139,23 +171,23 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
                 if (previousVol >= 0)
                 {
-                    volumes[(previousVol * 2)+1].weight = 0;
-                    sliders[(previousVol * 2)+1].value = 0;
+                    volumes[(previousVol * 2) + 1].weight = 0;
+                    sliders[(previousVol * 2) + 1].value = 0;
                 }
             }
             else if (estado == DayState.Dia && hora >= DuracionDia)
             {
                 estado = DayState.ComienzoNoche;
                 StateLabel.text = estado.ToString();
-                WeatherLabel.text = volumes[(currentVol * 2)+1].gameObject.name;
+                WeatherLabel.text = volumes[(currentVol * 2) + 1].gameObject.name;
 
             }
             else if (estado == DayState.ComienzoNoche && hora < (DuracionDia + DuracionTransicion))
             {
                 float valVol = (hora - DuracionDia) / DuracionTransicion;
 
-                volumes[(currentVol * 2)+1].weight = valVol;
-                sliders[(currentVol * 2)+1].value = valVol;
+                volumes[(currentVol * 2) + 1].weight = valVol;
+                sliders[(currentVol * 2) + 1].value = valVol;
 
                 volumes[currentVol * 2].weight = 1 - valVol;
                 sliders[currentVol * 2].value = 1 - valVol;
@@ -167,8 +199,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             }
             else if (estado == DayState.Noche && hora < DuracionNoche + DuracionDia)
             {
-                volumes[(currentVol * 2)+1].weight = 1;
-                sliders[(currentVol * 2)+1].value = 1;
+                volumes[(currentVol * 2) + 1].weight = 1;
+                sliders[(currentVol * 2) + 1].value = 1;
 
                 volumes[currentVol * 2].weight = 0;
                 sliders[currentVol * 2].value = 0;
@@ -183,21 +215,54 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 {
                     currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
                 }
-                elapsedTime=0;
+                elapsedTime = 0;
                 WeatherLabel.text = volumes[currentVol * 2].gameObject.name;
 
+                StartCoroutine(ChangeIcon());
             }
 
         });
         ///////////////////////////////////////////////////////////
 
-        
 
-        RestartBt.onClick.AddListener(RestartAnimation);
+
+       
 
         Hide();
 
-        MonitorTime=true;
+        MonitorTime = true;
+    }
+
+    IEnumerator ChangeIcon()
+    {
+        float alpha = 0f;
+        float duration = 5;
+
+        Color32 white = Color.white;
+        white.a = 0;
+
+        Renderer rend = icons[currentVol].GetComponent<Renderer>();
+        rend.material.SetColor("_BaseColor", white);
+
+        Renderer prevRend = null;
+
+
+        if (previousVol >= 0)
+            prevRend = icons[previousVol].GetComponent<Renderer>();
+
+        while (alpha < 1f)
+        {
+            alpha += Time.deltaTime / duration;
+            white.a = (byte)(alpha * 255f);
+            rend.material.SetColor("_BaseColor", white);
+            if (previousVol >= 0)
+            {
+                white.a = (byte)(255 - (alpha * 255f));
+                prevRend.material.SetColor("_BaseColor", white);
+            }
+
+            yield return null;
+        }
     }
 
     void ArrancaCalculos()
@@ -216,14 +281,14 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
 
         previousVol = -1;
-        elapsedTime=0;
+        elapsedTime = 0;
         estado = DayState.ComienzoDia;
 
-        WeatherLabel.text = volumes[currentVol*2].gameObject.name;
+        WeatherLabel.text = volumes[currentVol * 2].gameObject.name;
         StateLabel.text = estado.ToString();
 
-        
 
+        StartCoroutine(ChangeIcon());
     }
 
     void Update()
@@ -236,7 +301,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
             globalSlider.value = elapsedTime;
 
-          
+
         }
     }
 
@@ -246,9 +311,13 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         for (int i = 0; i < volumes.Count; i++)
         {
-                        volumes[i].weight = 0;
-                        sliders[i].value = 0;
+            volumes[i].weight = 0;
+            sliders[i].value = 0;
         }
+    }
+    void restorePlayerPrefDefaults()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     internal void toggleVisibility()
