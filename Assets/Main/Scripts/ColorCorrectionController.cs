@@ -44,7 +44,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     void Start()
     {
 
-         RestartBt.onClick.AddListener(RestartAnimation);
+        RestartBt.onClick.AddListener(RestartAnimation);
         DeltetePrefsBt.onClick.AddListener(restorePlayerPrefDefaults);
 
         if (PlayerPrefs.HasKey("DuracionDia"))
@@ -218,51 +218,69 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 elapsedTime = 0;
                 WeatherLabel.text = volumes[currentVol * 2].gameObject.name;
 
-                StartCoroutine(ChangeIcon());
+                StartCoroutine(FadeInIcon(icons[currentVol]));
+                StartCoroutine(FadeOutIcon(icons[previousVol]));
+
             }
 
         });
-        ///////////////////////////////////////////////////////////
-
-
-
-       
+        ///////////////////////////////////////////////////////////       
 
         Hide();
 
         MonitorTime = true;
     }
 
-    IEnumerator ChangeIcon()
+    IEnumerator FadeInIcon(GameObject icon)
     {
+        Debug.Log("appear icon " + icon.name);
         float alpha = 0f;
         float duration = 5;
 
         Color32 white = Color.white;
         white.a = 0;
 
-        Renderer rend = icons[currentVol].GetComponent<Renderer>();
+        Renderer rend = icon.GetComponent<Renderer>();
         rend.material.SetColor("_BaseColor", white);
-
-        Renderer prevRend = null;
-
-
-        if (previousVol >= 0)
-            prevRend = icons[previousVol].GetComponent<Renderer>();
 
         while (alpha < 1f)
         {
             alpha += Time.deltaTime / duration;
+            alpha = Mathf.Clamp01(alpha);
+
             white.a = (byte)(alpha * 255f);
             rend.material.SetColor("_BaseColor", white);
-            if (previousVol >= 0)
-            {
-                white.a = (byte)(255 - (alpha * 255f));
-                prevRend.material.SetColor("_BaseColor", white);
-            }
 
             yield return null;
         }
+        Debug.Log("finished fading in icon " + icon.name);
+
+    }
+
+    IEnumerator FadeOutIcon(GameObject icon)
+    {
+        Debug.Log("dissappear icon " + icon.name);
+        float alpha = 1f;
+        float duration = 2;
+
+        Color32 white = Color.white;
+        white.a = (byte)255;
+
+        Renderer rend = icon.GetComponent<Renderer>();
+        rend.material.SetColor("_BaseColor", white);
+
+        while (alpha > 0)
+        {
+            alpha -= Time.deltaTime / duration;
+            alpha = Mathf.Clamp01(alpha);
+
+            white.a = (byte)(alpha * 255f);
+            rend.material.SetColor("_BaseColor", white);
+
+            yield return null;
+        }
+        Debug.Log("finished fading out icon " + icon.name);
+
     }
 
     void ArrancaCalculos()
@@ -288,7 +306,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         StateLabel.text = estado.ToString();
 
 
-        StartCoroutine(ChangeIcon());
+        StartCoroutine(FadeInIcon(icons[currentVol]));
     }
 
     void Update()
