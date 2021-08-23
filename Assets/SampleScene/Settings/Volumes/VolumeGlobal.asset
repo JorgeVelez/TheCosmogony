@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bff652df78c97c4f963064ad1f34619, type: 3}
   m_Name: ColorCurves
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   master:
     m_OverrideState: 1
@@ -374,6 +374,59 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 12
     min: 2
+--- !u!114 &-3968404627448243877
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f086a068d4c5889438831b3ae9afc11c, type: 3}
+  m_Name: Tonemapping
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  mode:
+    m_OverrideState: 1
+    m_Value: 3
+  toeStrength:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+    max: 1
+  toeLength:
+    m_OverrideState: 1
+    m_Value: 0.5
+    min: 0
+    max: 1
+  shoulderStrength:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+    max: 1
+  shoulderLength:
+    m_OverrideState: 1
+    m_Value: 0.5
+    min: 0
+  shoulderAngle:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+    max: 1
+  gamma:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0.001
+  lutTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
+  lutContribution:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 1
 --- !u!114 &-2223948172287066284
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -567,7 +620,7 @@ MonoBehaviour:
   components:
   - {fileID: 1359070828411649799}
   - {fileID: -1167143466653396744}
-  - {fileID: 8049981929359091865}
+  - {fileID: -3968404627448243877}
   - {fileID: 6640133647794636954}
   - {fileID: 2759069934644561995}
   - {fileID: 8300247594604814326}
@@ -1095,59 +1148,6 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
     min: 0
---- !u!114 &8049981929359091865
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f086a068d4c5889438831b3ae9afc11c, type: 3}
-  m_Name: Tonemapping
-  m_EditorClassIdentifier: 
-  active: 0
-  m_AdvancedMode: 0
-  mode:
-    m_OverrideState: 1
-    m_Value: 3
-  toeStrength:
-    m_OverrideState: 1
-    m_Value: 0.015
-    min: 0
-    max: 1
-  toeLength:
-    m_OverrideState: 1
-    m_Value: 0.678
-    min: 0
-    max: 1
-  shoulderStrength:
-    m_OverrideState: 1
-    m_Value: 0
-    min: 0
-    max: 1
-  shoulderLength:
-    m_OverrideState: 1
-    m_Value: 0
-    min: 0
-  shoulderAngle:
-    m_OverrideState: 1
-    m_Value: 0
-    min: 0
-    max: 1
-  gamma:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 0.001
-  lutTexture:
-    m_OverrideState: 1
-    m_Value: {fileID: 8534537815417165676, guid: e34cfb27cdb652e41aefd5651282356d, type: 3}
-  lutContribution:
-    m_OverrideState: 1
-    m_Value: 0.906
-    min: 0
-    max: 1
 --- !u!114 &8300247594604814326
 MonoBehaviour:
   m_ObjectHideFlags: 3
