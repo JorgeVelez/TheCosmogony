@@ -82,7 +82,7 @@ MonoBehaviour:
     m_Value: 3
   toeStrength:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.183
     min: 0
     max: 1
   toeLength:
@@ -92,7 +92,7 @@ MonoBehaviour:
     max: 1
   shoulderStrength:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.336
     min: 0
     max: 1
   shoulderLength:
@@ -101,7 +101,7 @@ MonoBehaviour:
     min: 0
   shoulderAngle:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.079
     min: 0
     max: 1
   gamma:
@@ -175,7 +175,7 @@ MonoBehaviour:
     m_Value: 100
     min: -200
     max: 200
-  m_SelectedChannel: 2
+  m_SelectedChannel: 0
 --- !u!114 &-2429863671046554720
 MonoBehaviour:
   m_ObjectHideFlags: 3

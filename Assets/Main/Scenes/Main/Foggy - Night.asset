@@ -110,12 +110,12 @@ MonoBehaviour:
     m_Value: 3
   toeStrength:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.189
     min: 0
     max: 1
   toeLength:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.356
     min: 0
     max: 1
   shoulderStrength:
@@ -129,7 +129,7 @@ MonoBehaviour:
     min: 0
   shoulderAngle:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.168
     min: 0
     max: 1
   gamma:
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: 39.9
+    m_Value: 22
     min: -100
     max: 100
   tint:
