@@ -13,6 +13,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     enum DayState { ComienzoDia, Dia, ComienzoNoche, Noche };
     private List<string> seasons = new List<string>() { "Spring", "Summer", "Autum", "Winter" };
+    private string currentSeason;
     private DayState estado;
     private int currentVol;
     private int previousVol;
@@ -41,6 +42,9 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     public List<GameObject> icons;
 
     public GameObject seasonPrefab;
+
+    public Slider skySpeedlSlider;
+    public SkyRotator skyRotator;
 
     void Start()
     {
@@ -141,6 +145,19 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
 
         //////////////////////////////////////////////////////////////////////
+        //speed sky slider
+        if (PlayerPrefs.HasKey("skyspeed"))
+            skySpeedlSlider.value = PlayerPrefs.GetFloat("skyspeed");
+             skyRotator.rotationSpeed =  PlayerPrefs.GetFloat("skyspeed");
+        skySpeedlSlider.value = skyRotator.rotationSpeed;
+        skySpeedlSlider.onValueChanged.AddListener((speed) =>
+        {
+            skyRotator.rotationSpeed = speed;
+            PlayerPrefs.SetFloat("skyspeed", speed);
+        });
+
+        //////////////////////////////////////////////////////////////////////
+        //global slider
         globalSlider.onValueChanged.AddListener((hora) =>
         {
             globalSlider.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(hora).ToString(@"hh\:mm\:ss") + "/" + TimeSpan.FromSeconds(totalTime).ToString(@"hh\:mm\:ss");
@@ -233,13 +250,45 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         {
             RectTransform season = Instantiate(seasonPrefab, seasonPrefab.transform.parent).GetComponent<RectTransform>();
             season.gameObject.SetActive(true);
-            season.Find("Label").GetComponent<Text>().text = seasons[i];
+            string temporada=seasons[i];
+            season.Find("Label").GetComponent<Text>().text = temporada;
 
-            for (int ix = 0; ix < volumes.Count; ix=ix+2)
+            if (PlayerPrefs.HasKey(temporada + "_Mariposas"))
+                season.Find("Mariposas").GetComponent<Toggle>().isOn = PlayerPrefs.GetInt(temporada + "_Mariposas") == 1 ? true : false;
+            else
+                PlayerPrefs.SetInt(temporada + "_Mariposas", season.Find("Mariposas").GetComponent<Toggle>().isOn ? 1 : 0);
+
+            season.Find("Mariposas").GetComponent<Toggle>().onValueChanged.AddListener((value) =>
+            {
+                PlayerPrefs.SetInt(temporada+ "_Mariposas", value ? 1 : 0);
+            });
+
+            for (int ix = 0; ix < volumes.Count; ix = ix + 2)
             {
                 RectTransform seasonWeather = Instantiate(season.Find("Weathers/Weather").transform, season.Find("Weathers/Weather").transform.parent).GetComponent<RectTransform>();
                 seasonWeather.gameObject.SetActive(true);
-                seasonWeather.Find("Label").GetComponent<Text>().text = volumes[ix].gameObject.name;
+
+                string nombre=volumes[ix].gameObject.name.Replace(" - Day", "");
+                
+
+                seasonWeather.Find("Label").GetComponent<Text>().text = nombre;
+
+                if (PlayerPrefs.HasKey(temporada + "_" + nombre)){
+                    seasonWeather.GetComponent<InputField>().text = PlayerPrefs.GetString(temporada + "_" + nombre);
+                    Debug.Log("si exixtia prefs de este input field " +temporada + "_" + nombre +" y era " +seasonWeather.GetComponent<InputField>().text);
+                }else{
+                    PlayerPrefs.SetString(temporada + "_" + nombre, seasonWeather.GetComponent<InputField>().text);
+                    Debug.Log("no exixtia prefs de este input field " +temporada + "_" + nombre +" y se creo con el valor " +seasonWeather.GetComponent<InputField>().text);
+
+                }
+                seasonWeather.GetComponent<InputField>().onValueChanged.AddListener((value) =>
+                {
+                    Debug.Log("se modifico este input field " +temporada + "_" + nombre +" y se guarda con el valor " +seasonWeather.GetComponent<InputField>().text);
+
+                    PlayerPrefs.SetString( temporada+ "_" + nombre, seasonWeather.GetComponent<InputField>().text);
+
+                });
+
             }
         }
 
@@ -252,7 +301,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     IEnumerator FadeInIcon(GameObject icon)
     {
-        Debug.Log("appear icon " + icon.name);
+        //Debug.Log("appear icon " + icon.name);
         float alpha = 0f;
         float duration = 5;
 
@@ -272,13 +321,13 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
             yield return null;
         }
-        Debug.Log("finished fading in icon " + icon.name);
+        // Debug.Log("finished fading in icon " + icon.name);
 
     }
 
     IEnumerator FadeOutIcon(GameObject icon)
     {
-        Debug.Log("dissappear icon " + icon.name);
+        //Debug.Log("dissappear icon " + icon.name);
         float alpha = 1f;
         float duration = 2;
 
@@ -298,7 +347,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
             yield return null;
         }
-        Debug.Log("finished fading out icon " + icon.name);
+        // Debug.Log("finished fading out icon " + icon.name);
 
     }
 
@@ -314,6 +363,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         globalSlider.maxValue = totalTime;
 
+        //currentSeason=seasons[Mathf.ra];
 
         currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
 
