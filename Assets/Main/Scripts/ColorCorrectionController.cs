@@ -12,7 +12,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     private bool MonitorTime = false;
 
     enum DayState { ComienzoDia, Dia, ComienzoNoche, Noche };
-
+    private List<string> seasons = new List<string>() { "Spring", "Summer", "Autum", "Winter" };
     private DayState estado;
     private int currentVol;
     private int previousVol;
@@ -40,6 +40,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     private List<Slider> sliders = new List<Slider>();
     public List<GameObject> icons;
 
+    public GameObject seasonPrefab;
 
     void Start()
     {
@@ -224,7 +225,25 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             }
 
         });
-        ///////////////////////////////////////////////////////////       
+        ///////////////////////////////////////////////////////////  
+        //GENERATE SEASON CONFIGS
+        ///////////////////////////////////////////////////////////
+
+        for (int i = 0; i < seasons.Count; i++)
+        {
+            RectTransform season = Instantiate(seasonPrefab, seasonPrefab.transform.parent).GetComponent<RectTransform>();
+            season.gameObject.SetActive(true);
+            season.Find("Label").GetComponent<Text>().text = seasons[i];
+
+            for (int ix = 0; ix < volumes.Count/2; ix=ix+2)
+            {
+                RectTransform seasonWeather = Instantiate(season.Find("Weathers/Weather").transform, season.Find("Weathers/Weather").transform.parent).GetComponent<RectTransform>();
+                seasonWeather.gameObject.SetActive(true);
+                seasonWeather.Find("Label").GetComponent<Text>().text = volumes[i].gameObject.name;
+            }
+        }
+
+
 
         Hide();
 
