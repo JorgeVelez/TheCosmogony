@@ -25,6 +25,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     public Text StateLabel;
     public Text WeatherLabel;
+    public Text SeasonLabel;
     public InputField iFieldDuracionDia;
 
     public InputField iFieldDuracionNoche;
@@ -196,8 +197,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             else if (estado == DayState.Dia && hora >= DuracionDia)
             {
                 estado = DayState.ComienzoNoche;
-                StateLabel.text = estado.ToString();
-                WeatherLabel.text = volumes[(currentVol * 2) + 1].gameObject.name;
+                StateLabel.text = 
+                WeatherLabel.text = volumes[(currentVol * 2) + 1].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
 
             }
             else if (estado == DayState.ComienzoNoche && hora < (DuracionDia + DuracionTransicion))
@@ -234,7 +235,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                     currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
                 }
                 elapsedTime = 0;
-                WeatherLabel.text = volumes[currentVol * 2].gameObject.name;
+                WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
 
                 StartCoroutine(FadeInIcon(icons[currentVol]));
                 StartCoroutine(FadeOutIcon(icons[previousVol]));
@@ -363,7 +364,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         globalSlider.maxValue = totalTime;
 
-        //currentSeason=seasons[Mathf.ra];
+        currentSeason=seasons[UnityEngine.Random.Range(0, seasons.Count)];
 
         currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
 
@@ -371,9 +372,9 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         elapsedTime = 0;
         estado = DayState.ComienzoDia;
 
-        WeatherLabel.text = volumes[currentVol * 2].gameObject.name;
+        WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
         StateLabel.text = estado.ToString();
-
+        SeasonLabel.text = currentSeason.ToString();
 
         StartCoroutine(FadeInIcon(icons[currentVol]));
     }
