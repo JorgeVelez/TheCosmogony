@@ -235,11 +235,11 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             season.gameObject.SetActive(true);
             season.Find("Label").GetComponent<Text>().text = seasons[i];
 
-            for (int ix = 0; ix < volumes.Count/2; ix=ix+2)
+            for (int ix = 0; ix < volumes.Count; ix=ix+2)
             {
                 RectTransform seasonWeather = Instantiate(season.Find("Weathers/Weather").transform, season.Find("Weathers/Weather").transform.parent).GetComponent<RectTransform>();
                 seasonWeather.gameObject.SetActive(true);
-                seasonWeather.Find("Label").GetComponent<Text>().text = volumes[i].gameObject.name;
+                seasonWeather.Find("Label").GetComponent<Text>().text = volumes[ix].gameObject.name;
             }
         }
 
