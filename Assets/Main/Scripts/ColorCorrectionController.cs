@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEditor;
+using UnityEngine.VFX;
 
 public class ColorCorrectionController : Singleton<ColorCorrectionController>
 {
@@ -15,6 +16,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     enum DayState { ComienzoDia, Dia, ComienzoNoche, Noche };
     private List<string> seasons = new List<string>() { "Spring", "Summer", "Autum", "Winter" };
     private string currentSeason;
+    private string previousSeason;
     private DayState estado;
     private int currentVol;
     private int previousVol;
@@ -23,6 +25,9 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     private float DuracionDia;
     private float DuracionNoche;
     private float DuracionTransicion;
+
+    private int DuracionSeason;
+
 
     public Text StateLabel;
     public Text WeatherLabel;
@@ -33,8 +38,11 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     public InputField iFieldDuracionTransicion;
 
+    public InputField iFieldDuracionSeason;
+
     public GameObject sliderPrefab;
     public Slider globalSlider;
+    public Slider seasonsSlider;
     public GameObject UI;
     public Button RestartBt;
     public Button DeltetePrefsBt;
@@ -45,6 +53,13 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     public GameObject seasonPrefab;
     public SkyRotator skyRotator;
+
+    public FogControl fogControl;
+
+    private int daysCounter = 0;
+
+    public List<VisualEffect> butterflies;
+
 
     void Start()
     {
@@ -65,14 +80,17 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             iFieldDuracionTransicion.text = PlayerPrefs.GetString("DuracionTransicion");
         }
 
+        if (PlayerPrefs.HasKey("DuracionSeason"))
+        {
+            iFieldDuracionSeason.text = PlayerPrefs.GetString("DuracionSeason");
+        }
 
-        iFieldDuracionDia.onValueChanged.AddListener((val) =>
+
+        iFieldDuracionSeason.onValueChanged.AddListener((val) =>
         {
             try
             {
-                iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
-                PlayerPrefs.SetString("DuracionDia", iFieldDuracionDia.text);
-                Debug.Log("done");
+                PlayerPrefs.SetString("DuracionSeason", iFieldDuracionSeason.text);
             }
             catch (Exception ex)
             {
@@ -81,6 +99,21 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             }
 
         });
+        iFieldDuracionDia.onValueChanged.AddListener((val) =>
+       {
+           try
+           {
+               iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+               PlayerPrefs.SetString("DuracionDia", iFieldDuracionDia.text);
+               Debug.Log("done");
+           }
+           catch (Exception ex)
+           {
+               Debug.Log("illegit");
+
+           }
+
+       });
 
         iFieldDuracionNoche.onValueChanged.AddListener((val) =>
         {
@@ -141,7 +174,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         }
 
 
-        globalSlider.transform.Find("Label").GetComponent<Text>().text = "Global";
+        globalSlider.transform.Find("Label").GetComponent<Text>().text = "Progreso dia";
 
 
         //////////////////////////////////////////////////////////////////////
@@ -188,7 +221,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             else if (estado == DayState.Dia && hora >= DuracionDia)
             {
                 estado = DayState.ComienzoNoche;
-                StateLabel.text =
+                StateLabel.text = estado.ToString();
                 WeatherLabel.text = volumes[(currentVol * 2) + 1].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
 
             }
@@ -220,16 +253,67 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 estado = DayState.ComienzoDia;
                 StateLabel.text = estado.ToString();
 
+                daysCounter++;
+
+                if (daysCounter > DuracionSeason)
+                {
+                    daysCounter = 0;
+                    previousSeason = currentSeason;
+                    while (previousSeason == currentSeason)
+                    {
+                        currentSeason = seasons[UnityEngine.Random.Range(0, seasons.Count)];
+                    }
+
+                    Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
+                    if ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false)
+                    {
+                        StartCoroutine(FadeInMariposas());
+                    }
+                    else
+                        StartCoroutine(FadeOutMariposas());
+                }
+
+                SeasonLabel.text = currentSeason.ToString();
+
+                seasonsSlider.value = daysCounter;
+                seasonsSlider.transform.Find("Value").GetComponent<Text>().text = daysCounter + "/" + DuracionSeason;
+
+                List<int> listaPosiblesWeathers = new List<int>();
+                for (int ix = 0; ix < volumes.Count; ix = ix + 2)
+                {
+                    string weather = volumes[ix].gameObject.name.Replace(" - Day", "");
+                    int cantidad = int.Parse(PlayerPrefs.GetString(currentSeason + "_" + weather));
+                    // Debug.Log(weather + ":" + cantidad);
+
+                    for (int i = 0; i < cantidad; i++)
+                    {
+                        listaPosiblesWeathers.Add(ix / 2);
+                        //Debug.Log(weather + " added ");
+                    }
+                }
+
                 previousVol = currentVol;
                 while (currentVol == previousVol)
                 {
-                    currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
+                    currentVol = listaPosiblesWeathers[UnityEngine.Random.Range(0, listaPosiblesWeathers.Count)];
+
                 }
                 elapsedTime = 0;
                 WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
 
                 StartCoroutine(FadeInIcon(icons[currentVol]));
                 StartCoroutine(FadeOutIcon(icons[previousVol]));
+
+                if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
+                    fogControl.EnterFog(DuracionTransicion);
+                else
+                {
+                    if (fogControl.fogstate == "Foggy")
+                        fogControl.ExitFog(DuracionTransicion);
+                }
+
+
+
 
             }
 
@@ -278,7 +362,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 }
                 seasonWeather.GetComponent<InputField>().onValueChanged.AddListener((value) =>
                 {
-                   // Debug.Log("se modifico este input field " + temporada + "_" + nombre + " y se guarda con el valor " + seasonWeather.GetComponent<InputField>().text);
+                    // Debug.Log("se modifico este input field " + temporada + "_" + nombre + " y se guarda con el valor " + seasonWeather.GetComponent<InputField>().text);
 
                     PlayerPrefs.SetString(temporada + "_" + nombre, seasonWeather.GetComponent<InputField>().text);
 
@@ -346,6 +430,49 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     }
 
+
+    IEnumerator FadeInMariposas()
+    {
+        float alpha = 0f;
+        float duration = 5;
+
+
+        while (alpha < 1f)
+        {
+            alpha += Time.deltaTime / duration;
+            alpha = Mathf.Clamp01(alpha);
+
+            foreach (VisualEffect vfx in butterflies)
+            {
+                vfx.SetFloat("Alpha", alpha);
+            }
+
+            yield return null;
+        }
+
+    }
+
+    IEnumerator FadeOutMariposas()
+    {
+        float alpha = 1f;
+        float duration = 5;
+
+
+
+        while (alpha > 0)
+        {
+            alpha -= Time.deltaTime / duration;
+            alpha = Mathf.Clamp01(alpha);
+            foreach (VisualEffect vfx in butterflies)
+            {
+                vfx.SetFloat("Alpha", alpha);
+            }
+
+            yield return null;
+        }
+
+    }
+
     void ArrancaCalculos()
     {
         DuracionDia = float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f;
@@ -354,13 +481,41 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         DuracionTransicion = float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f;
 
+        DuracionSeason = int.Parse(iFieldDuracionSeason.text);
+
         totalTime = DuracionDia + DuracionNoche;
 
         globalSlider.maxValue = totalTime;
 
+        seasonsSlider.maxValue = DuracionSeason;
+        seasonsSlider.transform.Find("Value").GetComponent<Text>().text = daysCounter + "/" + DuracionSeason;
+
+
         currentSeason = seasons[UnityEngine.Random.Range(0, seasons.Count)];
 
-        currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
+        Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
+        if ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false)
+        {
+            StartCoroutine(FadeInMariposas());
+        }
+        else
+            StartCoroutine(FadeOutMariposas());
+
+        List<int> listaPosiblesWeathers = new List<int>();
+        for (int ix = 0; ix < volumes.Count; ix = ix + 2)
+        {
+            string weather = volumes[ix].gameObject.name.Replace(" - Day", "");
+            int cantidad = int.Parse(PlayerPrefs.GetString(currentSeason + "_" + weather));
+            //Debug.Log(weather + ":" + cantidad);
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                listaPosiblesWeathers.Add(ix / 2);
+                //Debug.Log(weather + " added ");
+            }
+        }
+
+        currentVol = listaPosiblesWeathers[UnityEngine.Random.Range(0, listaPosiblesWeathers.Count)];
 
         previousVol = -1;
         elapsedTime = 0;
@@ -370,7 +525,12 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         StateLabel.text = estado.ToString();
         SeasonLabel.text = currentSeason.ToString();
 
+        if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
+            fogControl.EnterFog(DuracionTransicion);
+
         StartCoroutine(FadeInIcon(icons[currentVol]));
+
+
     }
 
     void Update()
@@ -389,7 +549,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     void RestartAnimation()
     {
-       
+
 #if UNITY_EDITOR
         if (EditorApplication.isPlaying)
         {

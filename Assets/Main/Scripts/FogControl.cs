@@ -4,53 +4,113 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 
+//[ExecuteInEditMode]
 public class FogControl : MonoBehaviour
 {
     public Light luz;
     public DensityVolume dVolume;
 
-    public float Intensity = 0;
+    [Range(0, 1.0f)]
+    public float intensity = 0;
 
     float lastIntensity = 0;
 
     float lightMaxIntensity;
     float fogMaxIntensity;
+    public float duration = 55;
+
+    public string fogstate="Clear";
     void Start()
     {
-        lightMaxIntensity=luz.intensity;
-        fogMaxIntensity=dVolume.parameters.distanceFadeEnd;
+        lightMaxIntensity = luz.intensity;
+        fogMaxIntensity = dVolume.parameters.distanceFadeEnd;
     }
 
     void Update()
     {
-        if (Intensity != lastIntensity)
-        {
-            if (Intensity==0){
-                luz.gameObject.SetActive(false);
-                dVolume.gameObject.SetActive(false);
-            }
+        // if (Intensity != lastIntensity)
+        // {
+        //     if (Intensity == 0)
+        //     {
+        //         luz.gameObject.SetActive(false);
+        //         dVolume.gameObject.SetActive(false);
+        //     }
+        //     else
+        //     {
+        //         luz.gameObject.SetActive(true);
+        //         dVolume.gameObject.SetActive(true);
 
-            lastIntensity = Intensity;
+        //         luz.intensity = lightMaxIntensity * Intensity;
+        //         dVolume.parameters.distanceFadeEnd = fogMaxIntensity * Intensity;
+        //     }
+
+        //     lastIntensity = Intensity;
+        // }
+
+    }
+
+    public void EnterFog(float _duration)
+    {
+        fogstate="Foggy";
+        StopAllCoroutines();
+        StartCoroutine(FadeIn(_duration));
+        
+    }
+
+    public void ExitFog(float _duration)
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeOut(_duration));
+        fogstate="Clear";
+    }
+
+    IEnumerator FadeIn(float _duration)
+    {
+        intensity = 0f;
+
+        duration = _duration;
+
+        luz.intensity = 0;
+        dVolume.parameters.distanceFadeEnd = 0;
+
+        luz.gameObject.SetActive(true);
+        dVolume.gameObject.SetActive(true);
+
+        while (intensity < 1f)
+        {
+            intensity += Time.deltaTime / duration;
+            intensity = Mathf.Clamp01(intensity);
+
+            luz.intensity = lightMaxIntensity * intensity;
+            dVolume.parameters.distanceFadeEnd = fogMaxIntensity * intensity;
+
+            yield return null;
         }
 
     }
 
-    IEnumerator FadeIn()
+    IEnumerator FadeOut(float _duration)
     {
-        //Debug.Log("appear icon " + icon.name);
-        float _intensity = 0f;
-        float duration = 5;
+        intensity = 1f;
 
+        duration = _duration;
 
-        while (_intensity < 1f)
+        luz.intensity = lightMaxIntensity;
+        dVolume.parameters.distanceFadeEnd = fogMaxIntensity;
+
+        while (intensity > 0)
         {
-            _intensity += Time.deltaTime / duration;
-            _intensity = Mathf.Clamp01(_intensity);
+            intensity -= Time.deltaTime / duration;
+            intensity = Mathf.Clamp01(intensity);
 
-
+            luz.intensity = lightMaxIntensity * intensity;
+            dVolume.parameters.distanceFadeEnd = fogMaxIntensity * intensity;
 
             yield return null;
         }
+
+        luz.gameObject.SetActive(false);
+        dVolume.gameObject.SetActive(false);
 
     }
 }
