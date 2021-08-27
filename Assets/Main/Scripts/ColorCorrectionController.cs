@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using UnityEditor;
 
 public class ColorCorrectionController : Singleton<ColorCorrectionController>
 {
@@ -43,8 +44,6 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     public List<GameObject> icons;
 
     public GameObject seasonPrefab;
-
-    public Slider skySpeedlSlider;
     public SkyRotator skyRotator;
 
     void Start()
@@ -147,15 +146,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         //////////////////////////////////////////////////////////////////////
         //speed sky slider
-        if (PlayerPrefs.HasKey("skyspeed"))
-            skySpeedlSlider.value = PlayerPrefs.GetFloat("skyspeed");
-             skyRotator.rotationSpeed =  PlayerPrefs.GetFloat("skyspeed");
-        skySpeedlSlider.value = skyRotator.rotationSpeed;
-        skySpeedlSlider.onValueChanged.AddListener((speed) =>
-        {
-            skyRotator.rotationSpeed = speed;
-            PlayerPrefs.SetFloat("skyspeed", speed);
-        });
+        skyRotator.completeRotationDurationHours = totalTime;
 
         //////////////////////////////////////////////////////////////////////
         //global slider
@@ -197,7 +188,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             else if (estado == DayState.Dia && hora >= DuracionDia)
             {
                 estado = DayState.ComienzoNoche;
-                StateLabel.text = 
+                StateLabel.text =
                 WeatherLabel.text = volumes[(currentVol * 2) + 1].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
 
             }
@@ -251,7 +242,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         {
             RectTransform season = Instantiate(seasonPrefab, seasonPrefab.transform.parent).GetComponent<RectTransform>();
             season.gameObject.SetActive(true);
-            string temporada=seasons[i];
+            string temporada = seasons[i];
             season.Find("Label").GetComponent<Text>().text = temporada;
 
             if (PlayerPrefs.HasKey(temporada + "_Mariposas"))
@@ -261,7 +252,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
             season.Find("Mariposas").GetComponent<Toggle>().onValueChanged.AddListener((value) =>
             {
-                PlayerPrefs.SetInt(temporada+ "_Mariposas", value ? 1 : 0);
+                PlayerPrefs.SetInt(temporada + "_Mariposas", value ? 1 : 0);
             });
 
             for (int ix = 0; ix < volumes.Count; ix = ix + 2)
@@ -269,24 +260,27 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 RectTransform seasonWeather = Instantiate(season.Find("Weathers/Weather").transform, season.Find("Weathers/Weather").transform.parent).GetComponent<RectTransform>();
                 seasonWeather.gameObject.SetActive(true);
 
-                string nombre=volumes[ix].gameObject.name.Replace(" - Day", "");
-                
+                string nombre = volumes[ix].gameObject.name.Replace(" - Day", "");
+
 
                 seasonWeather.Find("Label").GetComponent<Text>().text = nombre;
 
-                if (PlayerPrefs.HasKey(temporada + "_" + nombre)){
+                if (PlayerPrefs.HasKey(temporada + "_" + nombre))
+                {
                     seasonWeather.GetComponent<InputField>().text = PlayerPrefs.GetString(temporada + "_" + nombre);
-                    Debug.Log("si exixtia prefs de este input field " +temporada + "_" + nombre +" y era " +seasonWeather.GetComponent<InputField>().text);
-                }else{
+                    //Debug.Log("si exixtia prefs de este input field " + temporada + "_" + nombre + " y era " + seasonWeather.GetComponent<InputField>().text);
+                }
+                else
+                {
                     PlayerPrefs.SetString(temporada + "_" + nombre, seasonWeather.GetComponent<InputField>().text);
-                    Debug.Log("no exixtia prefs de este input field " +temporada + "_" + nombre +" y se creo con el valor " +seasonWeather.GetComponent<InputField>().text);
+                    //Debug.Log("no exixtia prefs de este input field " + temporada + "_" + nombre + " y se creo con el valor " + seasonWeather.GetComponent<InputField>().text);
 
                 }
                 seasonWeather.GetComponent<InputField>().onValueChanged.AddListener((value) =>
                 {
-                    Debug.Log("se modifico este input field " +temporada + "_" + nombre +" y se guarda con el valor " +seasonWeather.GetComponent<InputField>().text);
+                   // Debug.Log("se modifico este input field " + temporada + "_" + nombre + " y se guarda con el valor " + seasonWeather.GetComponent<InputField>().text);
 
-                    PlayerPrefs.SetString( temporada+ "_" + nombre, seasonWeather.GetComponent<InputField>().text);
+                    PlayerPrefs.SetString(temporada + "_" + nombre, seasonWeather.GetComponent<InputField>().text);
 
                 });
 
@@ -364,7 +358,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         globalSlider.maxValue = totalTime;
 
-        currentSeason=seasons[UnityEngine.Random.Range(0, seasons.Count)];
+        currentSeason = seasons[UnityEngine.Random.Range(0, seasons.Count)];
 
         currentVol = UnityEngine.Random.Range(0, volumes.Count / 2);
 
@@ -395,13 +389,18 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     void RestartAnimation()
     {
-        ArrancaCalculos();
-
-        for (int i = 0; i < volumes.Count; i++)
+       
+#if UNITY_EDITOR
+        if (EditorApplication.isPlaying)
         {
-            volumes[i].weight = 0;
-            sliders[i].value = 0;
+            UnityEditor.EditorApplication.isPlaying = false;
         }
+#elif UNITY_STANDALONE_WIN
+         System.Diagnostics.Process.Start(Application.dataPath.Replace("_Data", ".exe")); //new program
+        Application.Quit(); //kill current process
+        Debug.Log("shut down");
+#endif
+
     }
     void restorePlayerPrefDefaults()
     {

@@ -8,7 +8,11 @@ public class SkyRotator : MonoBehaviour
 {
     Volume volume;
     HDRISky sky;
-    public float rotationSpeed = 0.01f;
+    float elapsedTime=0;
+
+    public float completeRotationDurationHours=24f;
+
+    public float currentRotation=0;
     void Awake()
     {
         volume = gameObject.GetComponent<Volume>();
@@ -18,7 +22,9 @@ public class SkyRotator : MonoBehaviour
 
     void Update()
     {
-        sky.rotation.value = Mathf.Lerp(sky.rotation.value, sky.rotation.value + 10, rotationSpeed * Time.deltaTime);
+        elapsedTime+= (Time.deltaTime);
+        currentRotation=elapsedTime/(completeRotationDurationHours*60f*60.0f/360.0f);
+        sky.rotation.value =currentRotation;
         if (sky.rotation.value == sky.rotation.max)
         {
             sky.rotation.value = 0;
