@@ -90,7 +90,7 @@ MonoBehaviour:
     m_Value: 100
     min: -200
     max: 200
-  m_SelectedChannel: 2
+  m_SelectedChannel: 0
 --- !u!114 &-1403068882167841718
 MonoBehaviour:
   m_ObjectHideFlags: 3
