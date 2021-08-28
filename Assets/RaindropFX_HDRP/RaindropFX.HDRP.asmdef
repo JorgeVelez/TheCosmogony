@@ -1,0 +1,27 @@
+{
+    "name": "RaindropFX.HDRP",
+    "rootNamespace": "",
+    "references": [
+        "Unity.RenderPipelines.Core.Editor",
+        "Unity.RenderPipelines.Core.Editor.Tests",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Core.Runtime.Tests",
+        "Unity.RenderPipelines.Core.ShaderLibrary",
+        "Unity.RenderPipelines.HighDefinition.Config.Runtime",
+        "Unity.RenderPipelines.HighDefinition.Editor",
+        "Unity.RenderPipelines.HighDefinition.Editor.Tests",
+        "Unity.RenderPipelines.HighDefinition.Runtime",
+        "Unity.RenderPipelines.HighDefinition.Runtime.Tests",
+        "Unity.RenderPipelines.HighDefinitionConfig.Editor.Tests",
+        "Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

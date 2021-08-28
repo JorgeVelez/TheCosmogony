@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6675096720030841735
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc57cafcc437894ab6d39a6cf4831c2, type: 3}
+  m_Name: RaindropFX_GPU
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  fadeout_fadein_switch:
+    m_OverrideState: 1
+    m_Value: 0
+  _noiseTex:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: e5c6c483872446a44aae19f004f2e8b5, type: 3}
+  refreshRate:
+    m_OverrideState: 1
+    m_Value: 1
+  StaticSpawnRate:
+    m_OverrideState: 1
+    m_Value: 5
+    min: 0
+    max: 16
+  DynamicSpawnRate:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 3.6
+  fusion:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 15
+  gravity:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: -9.8}
+  wind:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0}
+  windTurbulence:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 10
+  distortion:
+    m_OverrideState: 1
+    m_Value: 0.6
+    min: 0
+    max: 10
+  _inBlack:
+    m_OverrideState: 1
+    m_Value: 165
+    min: 0
+    max: 255
+  _inWhite:
+    m_OverrideState: 1
+    m_Value: 180
+    min: 0
+    max: 255
+  _outWhite:
+    m_OverrideState: 1
+    m_Value: 160
+    min: 0
+    max: 255
+  _outBlack:
+    m_OverrideState: 1
+    m_Value: 5
+    min: 0
+    max: 255
+  debug:
+    m_OverrideState: 1
+    m_Value: 0
+--- !u!114 &-1694809682602990182
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d08ce26990eb1a4a9177b860541e702, type: 3}
+  m_Name: Exposure
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  meteringMode:
+    m_OverrideState: 1
+    m_Value: 2
+  luminanceSource:
+    m_OverrideState: 1
+    m_Value: 1
+  fixedExposure:
+    m_OverrideState: 1
+    m_Value: 9.5
+  compensation:
+    m_OverrideState: 1
+    m_Value: 0
+  limitMin:
+    m_OverrideState: 1
+    m_Value: -10
+  limitMax:
+    m_OverrideState: 1
+    m_Value: 20
+  curveMap:
+    m_OverrideState: 1
+    m_Value:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -10
+        value: -10
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 20
+        value: 20
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  adaptationMode:
+    m_OverrideState: 1
+    m_Value: 1
+  adaptationSpeedDarkToLight:
+    m_OverrideState: 1
+    m_Value: 3
+    min: 0.001
+  adaptationSpeedLightToDark:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0.001
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: ScreenRain_GPU
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -1694809682602990182}
+  - {fileID: -6675096720030841735}

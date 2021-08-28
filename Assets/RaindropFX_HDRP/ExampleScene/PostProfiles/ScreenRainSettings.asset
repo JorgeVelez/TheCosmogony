@@ -1,0 +1,295 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2761046197149935637
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d08ce26990eb1a4a9177b860541e702, type: 3}
+  m_Name: Exposure
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  meteringMode:
+    m_OverrideState: 1
+    m_Value: 2
+  luminanceSource:
+    m_OverrideState: 1
+    m_Value: 1
+  fixedExposure:
+    m_OverrideState: 1
+    m_Value: 9.5
+  compensation:
+    m_OverrideState: 1
+    m_Value: 0
+  limitMin:
+    m_OverrideState: 1
+    m_Value: -10
+  limitMax:
+    m_OverrideState: 1
+    m_Value: 20
+  curveMap:
+    m_OverrideState: 1
+    m_Value:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -10
+        value: -10
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 20
+        value: 20
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  adaptationMode:
+    m_OverrideState: 1
+    m_Value: 1
+  adaptationSpeedDarkToLight:
+    m_OverrideState: 1
+    m_Value: 3
+    min: 0.001
+  adaptationSpeedLightToDark:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0.001
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: ScreenRainSettings
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -2761046197149935637}
+  - {fileID: 4984496277414942589}
+--- !u!114 &4984496277414942589
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4039d3050f0d2449a4bc43b3682f2f, type: 3}
+  m_Name: RaindropFX_HDRP
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  fadeout_fadein_switch:
+    m_OverrideState: 1
+    m_Value: 0
+  fastMode:
+    m_OverrideState: 1
+    m_Value: 1
+  fadeSpeed:
+    m_OverrideState: 1
+    m_Value: 0.02
+    min: 0.01
+    max: 1
+  refreshRate:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 10
+  _raindropTex_alpha:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 551b620c4f5d91a4a870f3cbc372ed08, type: 3}
+  forceRainTextureSize:
+    m_OverrideState: 1
+    m_Value: 1
+  calcRainTextureSize:
+    m_OverrideState: 1
+    m_Value: {x: 800, y: 450}
+  downSampling:
+    m_OverrideState: 1
+    m_Value: 0.5
+    min: 0.125
+    max: 8
+  _rainMask_grayscale:
+    m_OverrideState: 0
+    m_Value: {fileID: 2800000, guid: b99340d53593f22488003233b9ca5e4b, type: 3}
+  pixelization:
+    m_OverrideState: 1
+    m_Value: 0
+  pixResolution:
+    m_OverrideState: 1
+    m_Value: 110
+  mousePainting:
+    m_OverrideState: 1
+    m_Value: 0
+  wipeEffect:
+    m_OverrideState: 1
+    m_Value: 0
+  wipeTex:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
+  foggingSpeed:
+    m_OverrideState: 1
+    m_Value: 0.9
+  calcTimeStep:
+    m_OverrideState: 1
+    m_Value: 0.1
+    min: 0
+    max: 1
+  useWind:
+    m_OverrideState: 1
+    m_Value: 1
+  radialWind:
+    m_OverrideState: 1
+    m_Value: 0
+  windTurbulence:
+    m_OverrideState: 1
+    m_Value: 0.341
+    min: 0
+    max: 1
+  windTurbScale:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0.01
+    max: 10
+  wind:
+    m_OverrideState: 1
+    m_Value: {x: 2, y: 0}
+  gravity:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: -9.8}
+  friction:
+    m_OverrideState: 1
+    m_Value: 0.8
+    min: 0
+    max: 1
+  generateTrail:
+    m_OverrideState: 1
+    m_Value: 1
+  maxStaticRaindropNumber:
+    m_OverrideState: 1
+    m_Value: 5000
+    min: 0
+    max: 10000
+  maxDynamicRaindropNumber:
+    m_OverrideState: 1
+    m_Value: 10
+    min: 0
+    max: 1000
+  spawnRateS:
+    m_OverrideState: 1
+    m_Value: 5
+    min: 1
+    max: 10000
+  spawnRateD:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 1
+    max: 10000
+  raindropSizeRange:
+    m_OverrideState: 1
+    m_Value: {x: 0.1, y: 0.25}
+  tintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  tintAmount:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 2
+  fusion:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 15
+  distortion:
+    m_OverrideState: 1
+    m_Value: 3
+    min: 0
+    max: 10
+  _inBlack:
+    m_OverrideState: 1
+    m_Value: 55
+    min: 0
+    max: 255
+  _inWhite:
+    m_OverrideState: 1
+    m_Value: 180
+    min: 0
+    max: 255
+  _outWhite:
+    m_OverrideState: 1
+    m_Value: 160
+    min: 0
+    max: 255
+  _outBlack:
+    m_OverrideState: 1
+    m_Value: 5
+    min: 0
+    max: 255
+  useFog:
+    m_OverrideState: 1
+    m_Value: 0
+  fogTint:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  fogIntensity:
+    m_OverrideState: 1
+    m_Value: 0.5
+    min: 0.01
+    max: 1
+  fogIteration:
+    m_OverrideState: 1
+    m_Value: 2
+    min: 1
+    max: 5
+  dropletBlur:
+    m_OverrideState: 1
+    m_Value: 0
+  invertBlur:
+    m_OverrideState: 1
+    m_Value: 1
+  edgeSoftness:
+    m_OverrideState: 1
+    m_Value: 53
+    min: 1
+    max: 100
+  _focalize:
+    m_OverrideState: 1
+    m_Value: 5
+    min: 0
+    max: 10
+  blurIteration:
+    m_OverrideState: 1
+    m_Value: 2
+    min: 0
+    max: 10
+  tempWip: {fileID: 0}
+  wipDelta: {fileID: 0}
