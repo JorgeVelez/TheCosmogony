@@ -594,6 +594,35 @@ MonoBehaviour:
     m_Value: 16
     min: 4
     max: 64
+--- !u!114 &-1772406884169473639
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a607ab3ccca774eb1d5b54c548a4c5, type: 3}
+  m_Name: RainDrops
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rainAmount:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+    max: 1
+  zoom:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+    max: 3.14
+  speed:
+    m_OverrideState: 1
+    m_Value: 0.25
+    min: 0
+    max: 3.14
 --- !u!114 &-882487241859028941
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -680,6 +709,7 @@ MonoBehaviour:
   - {fileID: -882487241859028941}
   - {fileID: -7235507806080728826}
   - {fileID: -6876539953868431456}
+  - {fileID: -1772406884169473639}
 --- !u!114 &674584106578460169
 MonoBehaviour:
   m_ObjectHideFlags: 3
