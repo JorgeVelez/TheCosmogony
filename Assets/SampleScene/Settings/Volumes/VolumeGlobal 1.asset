@@ -68,11 +68,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc57cafcc437894ab6d39a6cf4831c2, type: 3}
   m_Name: RaindropFX_GPU
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   fadeout_fadein_switch:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   _noiseTex:
     m_OverrideState: 1
     m_Value: {fileID: 2800000, guid: e5c6c483872446a44aae19f004f2e8b5, type: 3}
@@ -91,7 +91,7 @@ MonoBehaviour:
     max: 3.6
   fusion:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 10
     min: 0
     max: 15
   gravity:
@@ -594,35 +594,6 @@ MonoBehaviour:
     m_Value: 16
     min: 4
     max: 64
---- !u!114 &-1772406884169473639
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a607ab3ccca774eb1d5b54c548a4c5, type: 3}
-  m_Name: RainDrops
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rainAmount:
-    m_OverrideState: 1
-    m_Value: 0
-    min: 0
-    max: 1
-  zoom:
-    m_OverrideState: 1
-    m_Value: 0
-    min: 0
-    max: 3.14
-  speed:
-    m_OverrideState: 1
-    m_Value: 0.25
-    min: 0
-    max: 3.14
 --- !u!114 &-882487241859028941
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -709,7 +680,6 @@ MonoBehaviour:
   - {fileID: -882487241859028941}
   - {fileID: -7235507806080728826}
   - {fileID: -6876539953868431456}
-  - {fileID: -1772406884169473639}
 --- !u!114 &674584106578460169
 MonoBehaviour:
   m_ObjectHideFlags: 3

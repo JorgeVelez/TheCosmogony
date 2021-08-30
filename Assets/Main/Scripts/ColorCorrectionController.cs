@@ -19,6 +19,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     private string previousSeason;
     private DayState estado;
     private int currentVol;
+    private int alternateVol;
     private int previousVol;
     private int nextVol;
 
@@ -55,6 +56,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     public SkyRotator skyRotator;
 
     public FogControl fogControl;
+    public RainControl rainControl;
 
     private int daysCounter = 0;
 
@@ -69,6 +71,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         if (PlayerPrefs.HasKey("DuracionDia"))
         {
+            Debug.Log("duracion dia si exte en playerprefs, asignando");
             iFieldDuracionDia.text = PlayerPrefs.GetString("DuracionDia");
         }
         if (PlayerPrefs.HasKey("DuracionNoche"))
@@ -148,176 +151,6 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         });
 
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////
-        ArrancaCalculos();
-
-        iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
-        iFieldDuracionNoche.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
-        iFieldDuracionTransicion.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
-
-
-        for (int i = 0; i < volumes.Count; i++)
-        {
-            Slider sli = Instantiate(sliderPrefab, sliderPrefab.transform.parent).GetComponent<Slider>();
-            sli.gameObject.SetActive(true);
-            sli.transform.Find("Label").GetComponent<Text>().text = volumes[i].gameObject.name;
-            sliders.Add(sli);
-            //Volume tempVol=volumes[i];
-            volumes[i].weight = 0;
-
-            sli.onValueChanged.AddListener((val) =>
-            {
-                sli.transform.Find("Value").GetComponent<Text>().text = val.ToString("F4");
-                //tempVol.weight=val;
-            });
-        }
-
-
-        globalSlider.transform.Find("Label").GetComponent<Text>().text = "Progreso dia";
-
-
-        //////////////////////////////////////////////////////////////////////
-        //speed sky slider
-        skyRotator.completeRotationDurationHours = totalTime;
-
-        //////////////////////////////////////////////////////////////////////
-        //global slider
-        globalSlider.onValueChanged.AddListener((hora) =>
-        {
-            globalSlider.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(hora).ToString(@"hh\:mm\:ss") + "/" + TimeSpan.FromSeconds(totalTime).ToString(@"hh\:mm\:ss");
-
-            if (estado == DayState.ComienzoDia && hora < DuracionTransicion)
-            {
-                float valVol = hora / DuracionTransicion;
-                volumes[currentVol * 2].weight = valVol;
-                sliders[currentVol * 2].value = valVol;
-
-
-
-                if (previousVol >= 0)
-                {
-                    volumes[(previousVol * 2) + 1].weight = 1 - valVol;
-                    sliders[(previousVol * 2) + 1].value = 1 - valVol;
-                }
-
-            }
-            else if (estado == DayState.ComienzoDia && hora >= DuracionTransicion)
-            {
-                estado = DayState.Dia;
-                StateLabel.text = estado.ToString();
-            }
-            else if (estado == DayState.Dia && hora < DuracionDia)
-            {
-                volumes[currentVol * 2].weight = 1;
-                sliders[currentVol * 2].value = 1;
-
-                if (previousVol >= 0)
-                {
-                    volumes[(previousVol * 2) + 1].weight = 0;
-                    sliders[(previousVol * 2) + 1].value = 0;
-                }
-            }
-            else if (estado == DayState.Dia && hora >= DuracionDia)
-            {
-                estado = DayState.ComienzoNoche;
-                StateLabel.text = estado.ToString();
-                WeatherLabel.text = volumes[(currentVol * 2) + 1].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
-
-            }
-            else if (estado == DayState.ComienzoNoche && hora < (DuracionDia + DuracionTransicion))
-            {
-                float valVol = (hora - DuracionDia) / DuracionTransicion;
-
-                volumes[(currentVol * 2) + 1].weight = valVol;
-                sliders[(currentVol * 2) + 1].value = valVol;
-
-                volumes[currentVol * 2].weight = 1 - valVol;
-                sliders[currentVol * 2].value = 1 - valVol;
-            }
-            else if (estado == DayState.ComienzoNoche && hora >= (DuracionDia + DuracionTransicion))
-            {
-                estado = DayState.Noche;
-                StateLabel.text = estado.ToString();
-            }
-            else if (estado == DayState.Noche && hora < DuracionNoche + DuracionDia)
-            {
-                volumes[(currentVol * 2) + 1].weight = 1;
-                sliders[(currentVol * 2) + 1].value = 1;
-
-                volumes[currentVol * 2].weight = 0;
-                sliders[currentVol * 2].value = 0;
-            }
-            else if (estado == DayState.Noche && hora >= DuracionNoche + DuracionDia)
-            {
-                estado = DayState.ComienzoDia;
-                StateLabel.text = estado.ToString();
-
-                daysCounter++;
-
-                if (daysCounter > DuracionSeason)
-                {
-                    daysCounter = 0;
-                    previousSeason = currentSeason;
-                    while (previousSeason == currentSeason)
-                    {
-                        currentSeason = seasons[UnityEngine.Random.Range(0, seasons.Count)];
-                    }
-
-                    Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
-                    if ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false)
-                    {
-                        StartCoroutine(FadeInMariposas());
-                    }
-                    else
-                        StartCoroutine(FadeOutMariposas());
-                }
-
-                SeasonLabel.text = currentSeason.ToString();
-
-                seasonsSlider.value = daysCounter;
-                seasonsSlider.transform.Find("Value").GetComponent<Text>().text = daysCounter + "/" + DuracionSeason;
-
-                List<int> listaPosiblesWeathers = new List<int>();
-                for (int ix = 0; ix < volumes.Count; ix = ix + 2)
-                {
-                    string weather = volumes[ix].gameObject.name.Replace(" - Day", "");
-                    int cantidad = int.Parse(PlayerPrefs.GetString(currentSeason + "_" + weather));
-                    // Debug.Log(weather + ":" + cantidad);
-
-                    for (int i = 0; i < cantidad; i++)
-                    {
-                        listaPosiblesWeathers.Add(ix / 2);
-                        //Debug.Log(weather + " added ");
-                    }
-                }
-
-                previousVol = currentVol;
-                while (currentVol == previousVol)
-                {
-                    currentVol = listaPosiblesWeathers[UnityEngine.Random.Range(0, listaPosiblesWeathers.Count)];
-
-                }
-                elapsedTime = 0;
-                WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
-
-                StartCoroutine(FadeInIcon(icons[currentVol]));
-                StartCoroutine(FadeOutIcon(icons[previousVol]));
-
-                if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
-                    fogControl.EnterFog(DuracionTransicion);
-                else
-                {
-                    if (fogControl.fogstate == "Foggy")
-                        fogControl.ExitFog(DuracionTransicion);
-                }
-
-
-
-
-            }
-
-        });
         ///////////////////////////////////////////////////////////  
         //GENERATE SEASON CONFIGS
         ///////////////////////////////////////////////////////////
@@ -372,10 +205,210 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         }
 
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        ArrancaCalculos();
+
+        iFieldDuracionDia.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionDia.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+        iFieldDuracionNoche.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionNoche.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+        iFieldDuracionTransicion.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(float.Parse(iFieldDuracionTransicion.text) * 60.0f * 60.0f).ToString(@"hh\:mm\:ss");
+
+
+        for (int i = 0; i < volumes.Count; i++)
+        {
+            Slider sli = Instantiate(sliderPrefab, sliderPrefab.transform.parent).GetComponent<Slider>();
+            sli.gameObject.SetActive(true);
+            sli.transform.Find("Label").GetComponent<Text>().text = volumes[i].gameObject.name;
+            sliders.Add(sli);
+            //Volume tempVol=volumes[i];
+            volumes[i].weight = 0;
+
+            sli.onValueChanged.AddListener((val) =>
+            {
+                sli.transform.Find("Value").GetComponent<Text>().text = val.ToString("F4");
+                //tempVol.weight=val;
+            });
+        }
+
+
+        globalSlider.transform.Find("Label").GetComponent<Text>().text = "Progreso dia";
+
+
+        //////////////////////////////////////////////////////////////////////
+        //speed sky slider
+        skyRotator.completeRotationDurationHours = totalTime;
+
+        //////////////////////////////////////////////////////////////////////
+        //global slider
+        globalSlider.onValueChanged.AddListener(ProcessFrameChange);
 
         Hide();
 
         MonitorTime = true;
+    }
+
+    void ProcessFrameChange(float hora)
+    {
+
+        globalSlider.transform.Find("Value").GetComponent<Text>().text = TimeSpan.FromSeconds(hora).ToString(@"hh\:mm\:ss") + "/" + TimeSpan.FromSeconds(totalTime).ToString(@"hh\:mm\:ss");
+
+        if (estado == DayState.ComienzoDia && hora < DuracionTransicion)
+        {
+            float valVol = hora / DuracionTransicion;
+            volumes[currentVol * 2].weight = valVol;
+            sliders[currentVol * 2].value = valVol;
+
+
+
+            if (previousVol >= 0)
+            {
+                volumes[(previousVol * 2) + 1].weight = 1 - valVol;
+                sliders[(previousVol * 2) + 1].value = 1 - valVol;
+            }
+
+        }
+        else if (estado == DayState.ComienzoDia && hora >= DuracionTransicion)
+        {
+            estado = DayState.Dia;
+            StateLabel.text = estado.ToString();
+        }
+        else if (estado == DayState.Dia && hora < DuracionDia)
+        {
+            volumes[currentVol * 2].weight = 1;
+            sliders[currentVol * 2].value = 1;
+
+            if (previousVol >= 0)
+            {
+                volumes[(previousVol * 2) + 1].weight = 0;
+                sliders[(previousVol * 2) + 1].value = 0;
+            }
+        }
+        else if (estado == DayState.Dia && hora >= DuracionDia)
+        {
+            estado = DayState.ComienzoNoche;
+            StateLabel.text = estado.ToString();
+            WeatherLabel.text = volumes[(currentVol * 2) + 1].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
+            alternateVol = -1;
+            //aqui cambiar icono si es con sol
+            if (WeatherLabel.text.ToLower().Contains("sunny"))
+            {
+                StartCoroutine(FadeOutIcon(icons[currentVol]));
+                alternateVol = 8;
+                StartCoroutine(FadeInIcon(icons[8]));
+            }
+            else if (WeatherLabel.text.ToLower().Contains("cloudy"))
+            {
+                StartCoroutine(FadeOutIcon(icons[currentVol]));
+                alternateVol = 9;
+                StartCoroutine(FadeInIcon(icons[9]));
+            }
+
+
+        }
+        else if (estado == DayState.ComienzoNoche && hora < (DuracionDia + DuracionTransicion))
+        {
+            float valVol = (hora - DuracionDia) / DuracionTransicion;
+
+            volumes[(currentVol * 2) + 1].weight = valVol;
+            sliders[(currentVol * 2) + 1].value = valVol;
+
+            volumes[currentVol * 2].weight = 1 - valVol;
+            sliders[currentVol * 2].value = 1 - valVol;
+        }
+        else if (estado == DayState.ComienzoNoche && hora >= (DuracionDia + DuracionTransicion))
+        {
+            estado = DayState.Noche;
+            StateLabel.text = estado.ToString();
+        }
+        else if (estado == DayState.Noche && hora < DuracionNoche + DuracionDia)
+        {
+            volumes[(currentVol * 2) + 1].weight = 1;
+            sliders[(currentVol * 2) + 1].value = 1;
+
+            volumes[currentVol * 2].weight = 0;
+            sliders[currentVol * 2].value = 0;
+        }
+        else if (estado == DayState.Noche && hora >= DuracionNoche + DuracionDia)
+        {
+            estado = DayState.ComienzoDia;
+            StateLabel.text = estado.ToString();
+
+            daysCounter++;
+
+            if (daysCounter > DuracionSeason)
+            {
+                daysCounter = 0;
+                previousSeason = currentSeason;
+                while (previousSeason == currentSeason)
+                {
+                    currentSeason = seasons[UnityEngine.Random.Range(0, seasons.Count)];
+                }
+
+                Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
+                if ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false)
+                {
+                    StartCoroutine(FadeInMariposas());
+                }
+                else
+                    StartCoroutine(FadeOutMariposas());
+            }
+
+            SeasonLabel.text = currentSeason.ToString();
+
+            seasonsSlider.value = daysCounter;
+            seasonsSlider.transform.Find("Value").GetComponent<Text>().text = daysCounter + "/" + DuracionSeason;
+
+            List<int> listaPosiblesWeathers = new List<int>();
+            for (int ix = 0; ix < volumes.Count; ix = ix + 2)
+            {
+                string weather = volumes[ix].gameObject.name.Replace(" - Day", "");
+                int cantidad = int.Parse(PlayerPrefs.GetString(currentSeason + "_" + weather));
+                // Debug.Log(weather + ":" + cantidad);
+
+                for (int i = 0; i < cantidad; i++)
+                {
+                    listaPosiblesWeathers.Add(ix / 2);
+                    //Debug.Log(weather + " added ");
+                }
+            }
+
+            previousVol = currentVol;
+            while (currentVol == previousVol)
+            {
+                currentVol = listaPosiblesWeathers[UnityEngine.Random.Range(0, listaPosiblesWeathers.Count)];
+
+            }
+            elapsedTime = 0;
+            WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
+
+            StartCoroutine(FadeInIcon(icons[currentVol]));
+            if (alternateVol == -1)
+                StartCoroutine(FadeOutIcon(icons[previousVol]));
+            else
+                StartCoroutine(FadeOutIcon(icons[alternateVol]));
+
+
+            if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
+                fogControl.EnterFog(DuracionTransicion);
+            else
+            {
+                if (fogControl.fogstate == "Foggy")
+                    fogControl.ExitFog(DuracionTransicion);
+            }
+
+            if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("rainy"))
+            {
+                rainControl.Show();
+                Debug.Log("show rain");
+            }
+            else
+            {
+                rainControl.Hide();
+                Debug.Log("hide rain");
+
+            }
+
+        }
+
     }
 
     IEnumerator FadeInIcon(GameObject icon)
@@ -570,7 +603,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
     internal void toggleVisibility()
     {
 
-        Debug.Log("<color=green>toggleVisibility " + UI.gameObject.activeSelf + "</color>");
+        // Debug.Log("<color=green>toggleVisibility " + UI.gameObject.activeSelf + "</color>");
 
         if (!UI.gameObject.activeSelf)
             Show();
