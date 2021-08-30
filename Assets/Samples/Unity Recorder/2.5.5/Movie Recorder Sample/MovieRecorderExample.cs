@@ -42,7 +42,7 @@ namespace UnityEngine.Recorder.Examples
             var controllerSettings = ScriptableObject.CreateInstance<RecorderControllerSettings>();
             m_RecorderController = new RecorderController(controllerSettings);
 
-            var mediaOutputFolder = new DirectoryInfo(Path.Combine(Application.dataPath, "..", "SampleRecordings"));
+            var mediaOutputFolder = new DirectoryInfo(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "/SampleRecordings"));
 
             // Video
             m_Settings = ScriptableObject.CreateInstance<MovieRecorderSettings>();
@@ -50,13 +50,14 @@ namespace UnityEngine.Recorder.Examples
             m_Settings.Enabled = true;
 
             // This example performs an MP4 recording
-            m_Settings.OutputFormat = MovieRecorderSettings.VideoRecorderOutputFormat.MP4;
+            m_Settings.OutputFormat = MovieRecorderSettings.VideoRecorderOutputFormat.MOV;
+            //m_Settings.RecordMode = RecorderSettings.record;
             m_Settings.VideoBitRateMode = VideoBitrateMode.High;
 
             m_Settings.ImageInputSettings = new GameViewInputSettings
             {
-                OutputWidth = 1920,
-                OutputHeight = 1080
+                OutputWidth = 1215,
+                OutputHeight = 2160
             };
 
             m_Settings.AudioInputSettings.PreserveAudio = m_RecordAudio;
