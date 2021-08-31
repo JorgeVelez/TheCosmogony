@@ -1,4 +1,5 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(MovieRecorderCosmogony))]
@@ -23,4 +24,6 @@ public class MovieRecorderCosmogonyEditor : Editor
             movieRecorderCosmogony.startCinemachineRecording();
         }
     }
+
 }
+    #endif

@@ -1,7 +1,9 @@
 using System.IO;
+#if UNITY_EDITOR
+
 using UnityEditor.Recorder;
 using UnityEditor.Recorder.Input;
-
+#endif
 using System.Linq;
 using UnityEngine;
 
@@ -16,14 +18,19 @@ public class MovieRecorderCosmogony : MonoBehaviour
 
     string state = "iddle";
 
+#if UNITY_EDITOR
+
     RecorderController TestRecorderController;
     RecorderControllerSettings m_ControllerSettings;
-
+#endif
     string mediaOutputFolder;
 
     public GameObject cameraToHide;
     
     public GameObject cinemachineGO;
+
+    #if UNITY_EDITOR
+
     void Awake()
     {
         m_ControllerSettings = RecorderControllerSettings.LoadOrCreate(Application.dataPath + "/../Library/Recorder/recorder.pref");
@@ -109,6 +116,6 @@ public class MovieRecorderCosmogony : MonoBehaviour
             }
         }
     }
-
+#endif
 
 }
