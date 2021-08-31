@@ -20,7 +20,7 @@ public class MovieRecorderCosmogonyEditor : Editor
         }
 
         if(GUILayout.Button("Start Cinemachine Recording")){
-           // movieRecorderCosmogony.startCinemachineRecording();
+            movieRecorderCosmogony.startCinemachineRecording();
         }
     }
 }
