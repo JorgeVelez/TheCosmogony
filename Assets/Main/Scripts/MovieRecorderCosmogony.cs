@@ -1,33 +1,76 @@
-using System.Collections;
+using System.IO;
 using UnityEditor.Recorder;
-using UnityEditor;
+using UnityEditor.Recorder.Input;
+
+using System.Linq;
 using UnityEngine;
 
 [ExecuteInEditMode]
 public class MovieRecorderCosmogony : MonoBehaviour
 {
-    RecorderWindow recorderWindow;
+    public ColorCorrectionController colorController;
 
+    bool isMonitoring = false;
 
-    private RecorderWindow GetRecorderWindow()
-    {
-        return (RecorderWindow)EditorWindow.GetWindow(typeof(RecorderWindow));
-    }
+    int currentVolumeRecorded = 0;
 
+    string state = "iddle";
+
+    RecorderController TestRecorderController;
+    RecorderControllerSettings m_ControllerSettings;
+
+    string mediaOutputFolder;
     void Awake()
     {
-        recorderWindow = GetRecorderWindow();
+        m_ControllerSettings = RecorderControllerSettings.LoadOrCreate(Application.dataPath + "/../Library/Recorder/recorder.pref");
+
+        TestRecorderController = new RecorderController(m_ControllerSettings);
+
+        mediaOutputFolder = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "movies");
+
     }
+
 
     public void startRecording()
     {
-        if (!recorderWindow.IsRecording())
-            recorderWindow.StartRecording();
+
+        colorController.StopProcessing();
+        colorController.resetAll();
+
+
+        string name=colorController.triggerVolume(currentVolumeRecorded);
+        m_ControllerSettings.RecorderSettings.FirstOrDefault().OutputFile = Path.Combine(mediaOutputFolder, name);
+
+        Invoke("startRecordingWindow", 2f);
     }
 
-    public void stopRecording()
+    void startRecordingWindow()
     {
-        if (recorderWindow.IsRecording())
-            recorderWindow.StopRecording();
+        isMonitoring = true;
+
+        state = "recording";
+        TestRecorderController.PrepareRecording();
+        TestRecorderController.StartRecording();
+        //recorderWindow.StartRecording();
     }
+
+    void Update()
+    {
+        if (isMonitoring)
+        {
+            if (state == "recording" && !TestRecorderController.IsRecording())
+            {
+                state = "finishedVolume";
+
+                Debug.Log("finished");
+                currentVolumeRecorded++;
+                if (currentVolumeRecorded < colorController.volumes.Count)
+                    startRecording();
+                else
+                    UnityEditor.EditorApplication.isPlaying = false;
+            }
+        }
+    }
+
+
 }

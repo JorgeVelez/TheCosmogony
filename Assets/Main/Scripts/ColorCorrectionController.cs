@@ -246,6 +246,73 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         MonitorTime = true;
     }
 
+    public void StopProcessing()
+    {
+        MonitorTime = false;
+
+    }
+
+    public void resetAll()
+    {
+        resetVolumes();
+        Stopbutterflies();
+        fogControl.ExitFog(0);
+        rainControl.Hide();
+        resetIcons();
+    }
+
+    public void resetVolumes()
+    {
+
+        for (int i = 0; i < volumes.Count; i++)
+        {
+            volumes[i].weight = 0;
+        }
+    }
+
+    public void resetIcons()
+    {
+        for (int i = 0; i < icons.Count; i++)
+        {
+            StartCoroutine(FadeOutIcon(icons[i], .01f));
+        }
+    }
+
+    public string triggerVolume(int vol)
+    {
+        volumes[vol].weight = 1;
+
+        string weather = volumes[vol].gameObject.name;
+
+        Debug.Log("Recording "+weather);
+
+        if (weather.Contains("Day"))
+            StartCoroutine(FadeInIcon(icons[vol / 2], .01f));
+        else if (weather.Contains("Night"))
+        {
+            if (weather.ToLower().Contains("sunny"))
+            {
+                StartCoroutine(FadeInIcon(icons[8], .01f));
+            }
+            else if (weather.ToLower().Contains("cloudy"))
+            {
+                StartCoroutine(FadeInIcon(icons[9], .01f));
+            }
+            else if (weather.ToLower().Contains("extreme"))
+            {
+                StartCoroutine(FadeInIcon(icons[10] ,.01f));
+            }
+        }
+
+        return weather;
+    }
+
+    public void Stopbutterflies()
+    {
+        StartCoroutine(FadeOutMariposas());
+
+    }
+
     void ProcessFrameChange(float hora)
     {
 
@@ -300,6 +367,12 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 StartCoroutine(FadeOutIcon(icons[currentVol]));
                 alternateVol = 9;
                 StartCoroutine(FadeInIcon(icons[9]));
+            }
+            else if (WeatherLabel.text.ToLower().Contains("extreme"))
+            {
+                StartCoroutine(FadeOutIcon(icons[currentVol]));
+                alternateVol = 10;
+                StartCoroutine(FadeInIcon(icons[10]));
             }
 
 
@@ -411,11 +484,11 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     }
 
-    IEnumerator FadeInIcon(GameObject icon)
+    IEnumerator FadeInIcon(GameObject icon, float _duration = 5f)
     {
         //Debug.Log("appear icon " + icon.name);
         float alpha = 0f;
-        float duration = 5;
+        float duration = _duration;
 
         Color32 white = Color.white;
         white.a = 0;
@@ -437,11 +510,11 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     }
 
-    IEnumerator FadeOutIcon(GameObject icon)
+    IEnumerator FadeOutIcon(GameObject icon, float _duration = 2f)
     {
         //Debug.Log("dissappear icon " + icon.name);
         float alpha = 1f;
-        float duration = 2;
+        float duration = _duration;
 
         Color32 white = Color.white;
         white.a = (byte)255;

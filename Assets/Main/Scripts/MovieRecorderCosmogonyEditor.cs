@@ -13,8 +13,14 @@ public class MovieRecorderCosmogonyEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        if(GUILayout.Button("Start Batch Recording")){
+        DrawDefaultInspector();
+
+        if(GUILayout.Button("Start Weather Batch Recording")){
             movieRecorderCosmogony.startRecording();
+        }
+
+        if(GUILayout.Button("Start Cinemachine Recording")){
+           // movieRecorderCosmogony.startCinemachineRecording();
         }
     }
 }
