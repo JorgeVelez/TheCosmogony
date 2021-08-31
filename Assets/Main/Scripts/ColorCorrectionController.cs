@@ -284,23 +284,26 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         string weather = volumes[vol].gameObject.name;
 
-        Debug.Log("Recording "+weather);
+        Debug.Log("Recording " + weather);
 
-        if (weather.Contains("Day"))
-            StartCoroutine(FadeInIcon(icons[vol / 2], .01f));
-        else if (weather.Contains("Night"))
+        StartCoroutine(FadeInIcon(icons[vol / 2], .01f));
+
+        if (weather.Contains("Night"))
         {
             if (weather.ToLower().Contains("sunny"))
             {
+                resetIcons();
                 StartCoroutine(FadeInIcon(icons[8], .01f));
             }
             else if (weather.ToLower().Contains("cloudy"))
             {
+                resetIcons();
                 StartCoroutine(FadeInIcon(icons[9], .01f));
             }
             else if (weather.ToLower().Contains("extreme"))
             {
-                StartCoroutine(FadeInIcon(icons[10] ,.01f));
+                resetIcons();
+                StartCoroutine(FadeInIcon(icons[10], .01f));
             }
         }
 
