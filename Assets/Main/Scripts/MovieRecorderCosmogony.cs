@@ -29,6 +29,8 @@ public class MovieRecorderCosmogony : MonoBehaviour
     
     public GameObject cinemachineGO;
 
+    public Rotator rotatorSky;
+    private Quaternion rotationYSky;
     #if UNITY_EDITOR
 
     void Awake()
@@ -39,6 +41,7 @@ public class MovieRecorderCosmogony : MonoBehaviour
 
         mediaOutputFolder = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "movies");
 
+        rotationYSky=rotatorSky.transform.rotation;
     }
 
 
@@ -47,7 +50,8 @@ public class MovieRecorderCosmogony : MonoBehaviour
 
         colorController.StopProcessing();
         colorController.resetAll();
-
+        rotatorSky.YAxis=false;
+        rotatorSky.transform.rotation=rotationYSky;
 
         string name=colorController.triggerVolume(currentVolumeRecorded);
         m_ControllerSettings.RecorderSettings.FirstOrDefault().OutputFile = Path.Combine(mediaOutputFolder, name);

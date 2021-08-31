@@ -307,6 +307,28 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             }
         }
 
+        
+
+            if (volumes[vol ].gameObject.name.ToLower().Contains("foggy"))
+                fogControl.EnterFog(DuracionTransicion);
+            else
+            {
+                if (fogControl.fogstate == "Foggy")
+                    fogControl.ExitFog(DuracionTransicion);
+            }
+
+            if (volumes[vol].gameObject.name.ToLower().Contains("rainy"))
+            {
+                rainControl.Show();
+                Debug.Log("show rain");
+            }
+            else
+            {
+                rainControl.Hide();
+                Debug.Log("hide rain");
+
+            }
+
         return weather;
     }
 
@@ -340,6 +362,12 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         {
             estado = DayState.Dia;
             StateLabel.text = estado.ToString();
+
+            StartCoroutine(FadeInIcon(icons[currentVol]));
+            if (alternateVol == -1)
+                StartCoroutine(FadeOutIcon(icons[previousVol]));
+            else
+                StartCoroutine(FadeOutIcon(icons[alternateVol]));
         }
         else if (estado == DayState.Dia && hora < DuracionDia)
         {
@@ -359,6 +387,25 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             WeatherLabel.text = volumes[(currentVol * 2) + 1].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
             alternateVol = -1;
             //aqui cambiar icono si es con sol
+
+
+
+        }
+        else if (estado == DayState.ComienzoNoche && hora < (DuracionDia + DuracionTransicion))
+        {
+            float valVol = (hora - DuracionDia) / DuracionTransicion;
+
+            volumes[(currentVol * 2) + 1].weight = valVol;
+            sliders[(currentVol * 2) + 1].value = valVol;
+
+            volumes[currentVol * 2].weight = 1 - valVol;
+            sliders[currentVol * 2].value = 1 - valVol;
+        }
+        else if (estado == DayState.ComienzoNoche && hora >= (DuracionDia + DuracionTransicion))
+        {
+            estado = DayState.Noche;
+            StateLabel.text = estado.ToString();
+
             if (WeatherLabel.text.ToLower().Contains("sunny"))
             {
                 StartCoroutine(FadeOutIcon(icons[currentVol]));
@@ -377,23 +424,6 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 alternateVol = 10;
                 StartCoroutine(FadeInIcon(icons[10]));
             }
-
-
-        }
-        else if (estado == DayState.ComienzoNoche && hora < (DuracionDia + DuracionTransicion))
-        {
-            float valVol = (hora - DuracionDia) / DuracionTransicion;
-
-            volumes[(currentVol * 2) + 1].weight = valVol;
-            sliders[(currentVol * 2) + 1].value = valVol;
-
-            volumes[currentVol * 2].weight = 1 - valVol;
-            sliders[currentVol * 2].value = 1 - valVol;
-        }
-        else if (estado == DayState.ComienzoNoche && hora >= (DuracionDia + DuracionTransicion))
-        {
-            estado = DayState.Noche;
-            StateLabel.text = estado.ToString();
         }
         else if (estado == DayState.Noche && hora < DuracionNoche + DuracionDia)
         {
@@ -456,11 +486,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             elapsedTime = 0;
             WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
 
-            StartCoroutine(FadeInIcon(icons[currentVol]));
-            if (alternateVol == -1)
-                StartCoroutine(FadeOutIcon(icons[previousVol]));
-            else
-                StartCoroutine(FadeOutIcon(icons[alternateVol]));
+
 
 
             if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
@@ -487,7 +513,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     }
 
-    IEnumerator FadeInIcon(GameObject icon, float _duration = 5f)
+    IEnumerator FadeInIcon(GameObject icon, float _duration = 1f)
     {
         //Debug.Log("appear icon " + icon.name);
         float alpha = 0f;
@@ -513,7 +539,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     }
 
-    IEnumerator FadeOutIcon(GameObject icon, float _duration = 2f)
+    IEnumerator FadeOutIcon(GameObject icon, float _duration = 1f)
     {
         //Debug.Log("dissappear icon " + icon.name);
         float alpha = 1f;
@@ -636,6 +662,18 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
             fogControl.EnterFog(DuracionTransicion);
+
+        if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("rainy"))
+        {
+            rainControl.Show();
+            Debug.Log("show rain");
+        }
+        else
+        {
+            rainControl.Hide();
+            Debug.Log("hide rain");
+
+        }
 
         StartCoroutine(FadeInIcon(icons[currentVol]));
 

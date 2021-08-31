@@ -8,7 +8,7 @@ public class RainControl : MonoBehaviour
 {
     Volume volume;
     RaindropFX_GPU rain;
-    public float currentRotation=0;
+    public bool isShowring=false;
     void Awake()
     {
         volume = gameObject.GetComponent<Volume>();
@@ -19,11 +19,13 @@ public class RainControl : MonoBehaviour
     public void Show()
     {
         rain.fadeout_fadein_switch.value=false;
+        isShowring=true;
     }
 
     public void Hide()
     {
         rain.fadeout_fadein_switch.value=true;
+        isShowring=false;
     }
 }
 
