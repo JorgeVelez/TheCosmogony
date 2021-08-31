@@ -39,6 +39,30 @@ GraphicsSettings:
   - {fileID: 16000, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 16001, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 17000, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 4800000, guid: 605c3c9e67f275a4288777f4fba9a8a7, type: 3}
+  - {fileID: 4800000, guid: 5a2a53aa1c512c047ae85f6628697f87, type: 3}
+  - {fileID: 4800000, guid: d90d9267b9ac7cb4e9a63e8eed9cb716, type: 3}
+  - {fileID: 4800000, guid: 63039cc52cf05584da39613b5a88f26c, type: 3}
+  - {fileID: 4800000, guid: 891fa5e0b455cda44bd2d9f3a4a46510, type: 3}
+  - {fileID: 4800000, guid: 8b8220955da40f045aa2326e696eb5cd, type: 3}
+  - {fileID: 4800000, guid: e81b63fd4acf5ab44968cc9fb1dc9a15, type: 3}
+  - {fileID: 4800000, guid: 5f7280229e6b39445b5fb6413d18bfc1, type: 3}
+  - {fileID: 4800000, guid: 6131a1a5462fd8548a14b9571c0753e3, type: 3}
+  - {fileID: 4800000, guid: b7bedbe26e5bc414396f868880df73bd, type: 3}
+  - {fileID: 4800000, guid: 9937fd9e4fb579142a59f2cd9c34fa12, type: 3}
+  - {fileID: 4800000, guid: d49de3a52184f3d419fa9eb96c62a70d, type: 3}
+  - {fileID: 4800000, guid: 5b993036949f66f419b34fb84ba409df, type: 3}
+  - {fileID: 4800000, guid: 91e190fb5fff26740954a2ff557542b3, type: 3}
+  - {fileID: 4800000, guid: b5790b91fbb6b9f45a7d4c75948eb533, type: 3}
+  - {fileID: 4800000, guid: 41ec4026f18edf24fbefe064245478ed, type: 3}
+  - {fileID: 4800000, guid: e2545cf2b43635a41a86f2a70929af42, type: 3}
+  - {fileID: 4800000, guid: dba34cd79434d8943a4dc72da4cdf7e7, type: 3}
+  - {fileID: 4800000, guid: 2cf1308e2aca773489e49c5cfbc31045, type: 3}
+  - {fileID: 4800000, guid: cff8f17958f0baa4fa1aca3c340472a2, type: 3}
+  - {fileID: 4800000, guid: 1d81e5ad64ca3b545ac085c549d74afa, type: 3}
+  - {fileID: 4800000, guid: 04005111d003e1443bb976ea245b55d0, type: 3}
+  - {fileID: 4800000, guid: 52920999bf9450442b23081d08371e0d, type: 3}
+  - {fileID: 4800000, guid: b876f687a00268543985993584bab682, type: 3}
   m_PreloadedShaders: []
   m_SpritesDefaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_CustomRenderPipeline: {fileID: 11400000, guid: e93c35b24eb03c74284e7dc0b755bfcc, type: 2}
