@@ -458,6 +458,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
                 if (DoDebugWeatherOcurrences)
                 {
                     File.AppendAllText(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"weatherOcurrences.txt"), weatherLog);
+                    weathersOcurridos.Clear();
                 }
                 while (previousSeason == currentSeason)
                 {
@@ -640,11 +641,11 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         if (DoDebugWeatherOcurrences)
         {
 
-            DuracionDia = .0003f * 60.0f * 60.0f;
+            DuracionDia = .0001f * 60.0f * 60.0f;
 
-            DuracionNoche = .0003f * 60.0f * 60.0f;
+            DuracionNoche = .0001f * 60.0f * 60.0f;
 
-            DuracionTransicion = .0001f * 60.0f * 60.0f;
+            DuracionTransicion = .00005f * 60.0f * 60.0f;
 
             DuracionSeason = 88;
         }
