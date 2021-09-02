@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ using UnityEngine.VFX;
 
 public class ColorCorrectionController : Singleton<ColorCorrectionController>
 {
+    public bool DoDebugWeatherOcurrences = false;
     private float elapsedTime = 0;
     private float totalTime = 0;
     private bool MonitorTime = false;
@@ -62,6 +64,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     public List<VisualEffect> butterflies;
 
+    private Dictionary<string, int> weathersOcurridos = new Dictionary<string, int>();
 
     void Start()
     {
@@ -307,27 +310,27 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             }
         }
 
-        
 
-            if (volumes[vol ].gameObject.name.ToLower().Contains("foggy"))
-                fogControl.EnterFog(DuracionTransicion);
-            else
-            {
-                if (fogControl.fogstate == "Foggy")
-                    fogControl.ExitFog(DuracionTransicion);
-            }
 
-            if (volumes[vol].gameObject.name.ToLower().Contains("rainy"))
-            {
-                rainControl.Show();
-                Debug.Log("show rain");
-            }
-            else
-            {
-                rainControl.Hide();
-                Debug.Log("hide rain");
+        if (volumes[vol].gameObject.name.ToLower().Contains("foggy"))
+            fogControl.EnterFog(DuracionTransicion);
+        else
+        {
+            if (fogControl.fogstate == "Foggy")
+                fogControl.ExitFog(DuracionTransicion);
+        }
 
-            }
+        if (volumes[vol].gameObject.name.ToLower().Contains("rainy"))
+        {
+            rainControl.Show();
+            Debug.Log("show rain");
+        }
+        else
+        {
+            rainControl.Hide();
+            Debug.Log("hide rain");
+
+        }
 
         return weather;
     }
@@ -444,6 +447,18 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             {
                 daysCounter = 0;
                 previousSeason = currentSeason;
+
+                string weatherLog = "Season: " + currentSeason + " time: " + DateTime.Now.ToString("MMddyyyyHHmmss") + "\n";
+                foreach (var item in weathersOcurridos)
+                {
+                    weatherLog += item.Key + " had " + item.Value + " ocurrences \n";
+                }
+                weatherLog += "\n";
+
+                if (DoDebugWeatherOcurrences)
+                {
+                    File.AppendAllText(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"weatherOcurrences.txt"), weatherLog);
+                }
                 while (previousSeason == currentSeason)
                 {
                     currentSeason = seasons[UnityEngine.Random.Range(0, seasons.Count)];
@@ -486,7 +501,10 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             elapsedTime = 0;
             WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
 
-
+            if (!weathersOcurridos.ContainsKey(WeatherLabel.text))
+                weathersOcurridos.Add(WeatherLabel.text, 1);
+            else
+                weathersOcurridos[WeatherLabel.text]++;
 
 
             if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
@@ -523,7 +541,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         white.a = 0;
 
         Image rend = icon.GetComponent<Image>();
-        rend.color= white;
+        rend.color = white;
 
         while (alpha < 1f)
         {
@@ -531,7 +549,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             alpha = Mathf.Clamp01(alpha);
 
             white.a = (byte)(alpha * 255f);
-             rend.color= white;
+            rend.color = white;
 
 
             yield return null;
@@ -549,8 +567,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         Color32 white = Color.white;
         white.a = (byte)255;
 
-         Image rend = icon.GetComponent<Image>();
-        rend.color= white;
+        Image rend = icon.GetComponent<Image>();
+        rend.color = white;
 
         while (alpha > 0)
         {
@@ -558,7 +576,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             alpha = Mathf.Clamp01(alpha);
 
             white.a = (byte)(alpha * 255f);
-             rend.color= white;
+            rend.color = white;
 
             yield return null;
         }
@@ -619,6 +637,18 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         DuracionSeason = int.Parse(iFieldDuracionSeason.text);
 
+        if (DoDebugWeatherOcurrences)
+        {
+
+            DuracionDia = .0003f * 60.0f * 60.0f;
+
+            DuracionNoche = .0003f * 60.0f * 60.0f;
+
+            DuracionTransicion = .0001f * 60.0f * 60.0f;
+
+            DuracionSeason = 88;
+        }
+
         totalTime = DuracionDia + DuracionNoche;
 
         globalSlider.maxValue = totalTime;
@@ -660,6 +690,11 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
         StateLabel.text = estado.ToString();
         SeasonLabel.text = currentSeason.ToString();
+
+        if (!weathersOcurridos.ContainsKey(WeatherLabel.text))
+            weathersOcurridos.Add(WeatherLabel.text, 1);
+        else
+            weathersOcurridos[WeatherLabel.text]++;
 
         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
             fogControl.EnterFog(DuracionTransicion);
