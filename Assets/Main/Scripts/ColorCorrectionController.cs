@@ -522,8 +522,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         Color32 white = Color.white;
         white.a = 0;
 
-        Renderer rend = icon.GetComponent<Renderer>();
-        rend.material.SetColor("_BaseColor", white);
+        Image rend = icon.GetComponent<Image>();
+        rend.color= white;
 
         while (alpha < 1f)
         {
@@ -531,7 +531,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             alpha = Mathf.Clamp01(alpha);
 
             white.a = (byte)(alpha * 255f);
-            rend.material.SetColor("_BaseColor", white);
+             rend.color= white;
+
 
             yield return null;
         }
@@ -548,8 +549,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         Color32 white = Color.white;
         white.a = (byte)255;
 
-        Renderer rend = icon.GetComponent<Renderer>();
-        rend.material.SetColor("_BaseColor", white);
+         Image rend = icon.GetComponent<Image>();
+        rend.color= white;
 
         while (alpha > 0)
         {
@@ -557,7 +558,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             alpha = Mathf.Clamp01(alpha);
 
             white.a = (byte)(alpha * 255f);
-            rend.material.SetColor("_BaseColor", white);
+             rend.color= white;
 
             yield return null;
         }
