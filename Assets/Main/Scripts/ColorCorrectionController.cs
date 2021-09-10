@@ -66,6 +66,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     private Dictionary<string, int> weathersOcurridos = new Dictionary<string, int>();
 
+    public bool modifyRain=true;
+
     void Start()
     {
 
@@ -322,12 +324,14 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         if (volumes[vol].gameObject.name.ToLower().Contains("rainy"))
         {
+            if(modifyRain)
             rainControl.Show();
             Debug.Log("show rain");
         }
         else
         {
-            rainControl.Hide();
+            if(modifyRain)
+                rainControl.Hide();
             Debug.Log("hide rain");
 
         }
@@ -518,11 +522,13 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
             if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("rainy"))
             {
-                rainControl.Show();
+                if(modifyRain)
+                    rainControl.Show();
                 Debug.Log("show rain");
             }
             else
             {
+                            if(modifyRain)
                 rainControl.Hide();
                 Debug.Log("hide rain");
 
@@ -702,11 +708,13 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("rainy"))
         {
+                        if(modifyRain)
             rainControl.Show();
             Debug.Log("show rain");
         }
         else
         {
+                        if(modifyRain)
             rainControl.Hide();
             Debug.Log("hide rain");
 

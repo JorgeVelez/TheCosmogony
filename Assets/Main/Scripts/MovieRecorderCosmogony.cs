@@ -49,6 +49,7 @@ public class MovieRecorderCosmogony : MonoBehaviour
     {
 
         colorController.StopProcessing();
+        colorController.modifyRain=false;
         colorController.resetAll();
         rotatorSky.YAxis=false;
         rotatorSky.transform.rotation=rotationYSky;
