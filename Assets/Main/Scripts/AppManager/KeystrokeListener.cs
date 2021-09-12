@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using UnityEngine;
-using SRDebugger;
+ using UnityEngine.SceneManagement;
 using UnityEditor;
 
 public class KeystrokeListener : MonoBehaviour
@@ -20,6 +20,11 @@ public class KeystrokeListener : MonoBehaviour
 
             Debug.Log("sadasdasd");
         }
+
+        if(Input.GetKeyDown(KeyCode.R)){
+             Scene scene = SceneManager.GetActiveScene();
+              SceneManager.LoadScene(scene.name);
+         }
         if (Input.GetKeyUp(KeyCode.Tab))
         {
             ConfigurationUIManager.Instance.toggleVisibility();
