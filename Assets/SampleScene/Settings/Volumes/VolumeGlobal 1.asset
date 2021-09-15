@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc57cafcc437894ab6d39a6cf4831c2, type: 3}
   m_Name: RaindropFX_GPU
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   fadeout_fadein_switch:
     m_OverrideState: 1
