@@ -8,8 +8,10 @@ public class SendEmail : Singleton<SendEmail>
 
     public void SendEMail(string email, string mesj)
     {
-        // A correct website page.
-        StartCoroutine(GetRequest("https://jorgevelez.net/sitio_jv/Tools/sendEmail.php?email=" + email + "&asunto=reporte%20de%20gastos&mensaje=" + mesj));
+        string uri = "https://jorgevelez.net/sitio_jv/Tools/sendEmail.php?email=" + email + "&asunto=error&mensaje=" + mesj;
+        Debug.Log("uri " + uri);
+
+        StartCoroutine(GetRequest(uri));
 
     }
 

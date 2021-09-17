@@ -48,6 +48,6 @@ public class CaptureScreenRegion : MonoBehaviour
             Debug.Log("problem");
             CancelInvoke();
             SendEmail.instance.SendEMail("jorgeluisvelez@gmail.com", "blackout error");
-            colorCorrectionController.restartScene();
+            //colorCorrectionController.restartScene();
     }}
 }
