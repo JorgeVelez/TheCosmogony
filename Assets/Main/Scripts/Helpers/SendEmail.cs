@@ -8,7 +8,7 @@ public class SendEmail : Singleton<SendEmail>
 
     public void SendEMail(string email, string mesj)
     {
-        string uri = "https://jorgevelez.net/sitio_jv/Tools/sendEmail.php?email=" + email + "&asunto=error&mensaje=" + mesj;
+        string uri = "https://maker.ifttt.com/trigger/requestReceived/with/key/dEj4z-y8Rx4fTQbHegTCO0?value1=12345";
         Debug.Log("uri " + uri);
 
         StartCoroutine(GetRequest(uri));
