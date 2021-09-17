@@ -7,6 +7,8 @@ public class AppManager : MonoBehaviour
     public bool erasePlayerPrefs = true;
     void Awake()
     {
+                            Debug.Log("Appmanager started  ");
+
         if (PlayerPrefs.HasKey("version"))
         {
             if (Application.version != PlayerPrefs.GetString("version"))

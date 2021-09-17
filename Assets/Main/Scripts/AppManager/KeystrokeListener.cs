@@ -2,12 +2,12 @@
 using System;
 using System.IO;
 using UnityEngine;
- using UnityEngine.SceneManagement;
 using UnityEditor;
 
 public class KeystrokeListener : MonoBehaviour
 {
 
+    public ColorCorrectionController colorCorrectionController;
 
     private void Update()
     {
@@ -22,8 +22,7 @@ public class KeystrokeListener : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.R)){
-             Scene scene = SceneManager.GetActiveScene();
-              SceneManager.LoadScene(scene.name);
+             colorCorrectionController.restartScene();
          }
         if (Input.GetKeyUp(KeyCode.Tab))
         {
@@ -31,7 +30,7 @@ public class KeystrokeListener : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.K))
         {
-            ColorCorrectionController.Instance.toggleVisibility();
+            colorCorrectionController.toggleVisibility();
         }
         if (Input.GetKeyUp(KeyCode.Escape))
         {

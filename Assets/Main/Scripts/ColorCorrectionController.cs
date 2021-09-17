@@ -7,8 +7,9 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEditor;
 using UnityEngine.VFX;
+using UnityEngine.SceneManagement;
 
-public class ColorCorrectionController : Singleton<ColorCorrectionController>
+public class ColorCorrectionController : MonoBehaviour
 {
     public bool DoDebugWeatherOcurrences = false;
     private float elapsedTime = 0;
@@ -66,13 +67,22 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     private Dictionary<string, int> weathersOcurridos = new Dictionary<string, int>();
 
-    public bool modifyRain=true;
+    public bool modifyRain = true;
 
-    void Start()
+    bool restartedDay = false;
+    bool restartedNight = false;
+
+    void Awake()
     {
+
+        Debug.Log("color correction controller started");
 
         RestartBt.onClick.AddListener(RestartAnimation);
         DeltetePrefsBt.onClick.AddListener(restorePlayerPrefDefaults);
+
+        if (!PlayerPrefs.HasKey("RestartFlag"))
+            PlayerPrefs.SetInt("RestartFlag", 0);
+
 
         if (PlayerPrefs.HasKey("DuracionDia"))
         {
@@ -266,6 +276,27 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         resetIcons();
     }
 
+
+    public void restartScene()
+    {
+        Debug.Log("restarted scene");
+        PlayerPrefs.SetInt("RestartFlag", 1);
+
+        resetAll();
+
+
+        PlayerPrefs.SetString("currentSeason", currentSeason);
+        PlayerPrefs.SetInt("currentVol", currentVol);
+        PlayerPrefs.SetInt("alternateVol", alternateVol);
+        PlayerPrefs.SetInt("previousVol", previousVol);
+        PlayerPrefs.SetInt("estado", (int)estado);
+        PlayerPrefs.SetString("weathersOcurridos", JsonUtility.ToJson(weathersOcurridos));
+        PlayerPrefs.SetFloat("elapsedTime", elapsedTime);
+
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
     public void resetVolumes()
     {
 
@@ -277,9 +308,13 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     public void resetIcons()
     {
+        StopAllCoroutines();
         for (int i = 0; i < icons.Count; i++)
         {
-            StartCoroutine(FadeOutIcon(icons[i], .01f));
+            Image rend = icons[i].GetComponent<Image>();
+            Color32 color32 = rend.color;
+            color32.a = 0;
+            rend.color = color32;
         }
     }
 
@@ -291,6 +326,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         Debug.Log("Recording " + weather);
 
+        resetIcons();
         StartCoroutine(FadeInIcon(icons[vol / 2], .01f));
 
         if (weather.Contains("Night"))
@@ -324,13 +360,13 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         if (volumes[vol].gameObject.name.ToLower().Contains("rainy"))
         {
-            if(modifyRain)
-            rainControl.Show();
+            if (modifyRain)
+                rainControl.Show();
             Debug.Log("show rain");
         }
         else
         {
-            if(modifyRain)
+            if (modifyRain)
                 rainControl.Hide();
             Debug.Log("hide rain");
 
@@ -370,16 +406,27 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             estado = DayState.Dia;
             StateLabel.text = estado.ToString();
 
+            volumes[currentVol * 2].weight = 1;
+            sliders[currentVol * 2].value = 1;
+
+            resetIcons();
             StartCoroutine(FadeInIcon(icons[currentVol]));
-            if (alternateVol == -1)
-                StartCoroutine(FadeOutIcon(icons[previousVol]));
-            else
-                StartCoroutine(FadeOutIcon(icons[alternateVol]));
+            // if (alternateVol == -1)
+            // StartCoroutine(FadeOutIcon(icons[previousVol]));
+            // else
+            //StartCoroutine(FadeOutIcon(icons[alternateVol]));
         }
         else if (estado == DayState.Dia && hora < DuracionDia)
         {
             volumes[currentVol * 2].weight = 1;
             sliders[currentVol * 2].value = 1;
+
+            if (hora > ((DuracionDia / 2) + (DuracionTransicion / 2)) && !restartedDay)
+            {
+                restartedDay = true;
+                restartedNight = false;
+                // restartScene();
+            }
 
             if (previousVol >= 0)
             {
@@ -413,27 +460,42 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
             estado = DayState.Noche;
             StateLabel.text = estado.ToString();
 
+
+
+            volumes[(currentVol * 2) + 1].weight = 1;
+            sliders[(currentVol * 2) + 1].value = 1;
+
             if (WeatherLabel.text.ToLower().Contains("sunny"))
             {
-                StartCoroutine(FadeOutIcon(icons[currentVol]));
+                //StartCoroutine(FadeOutIcon(icons[currentVol]));
                 alternateVol = 8;
+                resetIcons();
                 StartCoroutine(FadeInIcon(icons[8]));
             }
             else if (WeatherLabel.text.ToLower().Contains("cloudy"))
             {
-                StartCoroutine(FadeOutIcon(icons[currentVol]));
+                // StartCoroutine(FadeOutIcon(icons[currentVol]));
                 alternateVol = 9;
+                resetIcons();
                 StartCoroutine(FadeInIcon(icons[9]));
             }
             else if (WeatherLabel.text.ToLower().Contains("extreme"))
             {
-                StartCoroutine(FadeOutIcon(icons[currentVol]));
+                // StartCoroutine(FadeOutIcon(icons[currentVol]));
                 alternateVol = 10;
+                resetIcons();
                 StartCoroutine(FadeInIcon(icons[10]));
             }
         }
         else if (estado == DayState.Noche && hora < DuracionNoche + DuracionDia)
         {
+            if (hora > ((DuracionDia) + (DuracionNoche / 2) + (DuracionTransicion)) && restartedDay && !restartedNight)
+            {
+                restartedDay = false;
+                restartedNight = true;
+                restartScene();
+            }
+
             volumes[(currentVol * 2) + 1].weight = 1;
             sliders[(currentVol * 2) + 1].value = 1;
 
@@ -444,6 +506,8 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         {
             estado = DayState.ComienzoDia;
             StateLabel.text = estado.ToString();
+
+            alternateVol = -1;
 
             daysCounter++;
 
@@ -461,7 +525,7 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
                 if (DoDebugWeatherOcurrences)
                 {
-                    File.AppendAllText(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments),"weatherOcurrences.txt"), weatherLog);
+                    File.AppendAllText(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "weatherOcurrences.txt"), weatherLog);
                     weathersOcurridos.Clear();
                 }
                 while (previousSeason == currentSeason)
@@ -522,14 +586,14 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
             if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("rainy"))
             {
-                if(modifyRain)
+                if (modifyRain)
                     rainControl.Show();
                 Debug.Log("show rain");
             }
             else
             {
-                            if(modifyRain)
-                rainControl.Hide();
+                if (modifyRain)
+                    rainControl.Hide();
                 Debug.Log("hide rain");
 
             }
@@ -565,31 +629,31 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
     }
 
-    IEnumerator FadeOutIcon(GameObject icon, float _duration = 1f)
-    {
-        //Debug.Log("dissappear icon " + icon.name);
-        float alpha = 1f;
-        float duration = _duration;
+    // IEnumerator FadeOutIcon(GameObject icon, float _duration = 1f)
+    // {
+    //     //Debug.Log("dissappear icon " + icon.name);
+    //     float alpha = 1f;
+    //     float duration = _duration;
 
-        Color32 white = Color.white;
-        white.a = (byte)255;
+    //     Color32 white = Color.white;
+    //     white.a = (byte)255;
 
-        Image rend = icon.GetComponent<Image>();
-        rend.color = white;
+    //     Image rend = icon.GetComponent<Image>();
+    //     rend.color = white;
 
-        while (alpha > 0)
-        {
-            alpha -= Time.deltaTime / duration;
-            alpha = Mathf.Clamp01(alpha);
+    //     while (alpha > 0)
+    //     {
+    //         alpha -= Time.deltaTime / duration;
+    //         alpha = Mathf.Clamp01(alpha);
 
-            white.a = (byte)(alpha * 255f);
-            rend.color = white;
+    //         white.a = (byte)(alpha * 255f);
+    //         rend.color = white;
 
-            yield return null;
-        }
-        // Debug.Log("finished fading out icon " + icon.name);
+    //         yield return null;
+    //     }
+    //     // Debug.Log("finished fading out icon " + icon.name);
 
-    }
+    // }
 
 
     IEnumerator FadeInMariposas()
@@ -665,6 +729,11 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
 
         currentSeason = seasons[UnityEngine.Random.Range(0, seasons.Count)];
+        if (PlayerPrefs.GetInt("RestartFlag") == 1)
+        {
+            currentSeason = PlayerPrefs.GetString("currentSeason");
+
+        }
 
         Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
         if ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false)
@@ -692,7 +761,18 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
 
         previousVol = -1;
         elapsedTime = 0;
-        estado = DayState.ComienzoDia;
+        estado = DayState.Dia;
+
+        if (PlayerPrefs.GetInt("RestartFlag") == 1)
+        {
+            currentVol = PlayerPrefs.GetInt("currentVol");
+            previousVol = PlayerPrefs.GetInt("previousVol");
+            estado = (DayState)PlayerPrefs.GetInt("estado");
+            elapsedTime = PlayerPrefs.GetFloat("elapsedTime");
+            alternateVol = PlayerPrefs.GetInt("alternateVol");
+            globalSlider.value = elapsedTime;
+        }
+
 
         WeatherLabel.text = volumes[currentVol * 2].gameObject.name.Replace(" - Day", "").Replace(" - Night", "");
         StateLabel.text = estado.ToString();
@@ -703,25 +783,43 @@ public class ColorCorrectionController : Singleton<ColorCorrectionController>
         else
             weathersOcurridos[WeatherLabel.text]++;
 
+        if (PlayerPrefs.GetInt("RestartFlag") == 1)
+        {
+            weathersOcurridos = JsonUtility.FromJson<Dictionary<string, int>>(PlayerPrefs.GetString("weathersOcurridos"));
+
+        }
+
         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
             fogControl.EnterFog(DuracionTransicion);
 
         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("rainy"))
         {
-                        if(modifyRain)
-            rainControl.Show();
+            if (modifyRain)
+                rainControl.Show();
             Debug.Log("show rain");
         }
         else
         {
-                        if(modifyRain)
-            rainControl.Hide();
+            if (modifyRain)
+                rainControl.Hide();
             Debug.Log("hide rain");
 
         }
-
+        resetIcons();
         StartCoroutine(FadeInIcon(icons[currentVol]));
 
+        string weatherIc = volumes[currentVol].gameObject.name;
+
+
+        if (alternateVol>0)
+        {
+                    resetIcons();
+
+                StartCoroutine(FadeInIcon(icons[alternateVol], .01f));
+        }else{
+
+        }
+        PlayerPrefs.SetInt("RestartFlag", 0);
 
     }
 
