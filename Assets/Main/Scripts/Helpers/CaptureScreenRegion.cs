@@ -47,7 +47,7 @@ public class CaptureScreenRegion : MonoBehaviour
         if(noColor){
             Debug.Log("problem");
             CancelInvoke();
-            SendEmail.instance.SendEMail("jorgeluisvelez@gmail.com", "blackout error");
+            SendEmail.instance.SendEMail( "blackout error");
             colorCorrectionController.restartScene();
     }}
 }
