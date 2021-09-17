@@ -789,8 +789,7 @@ public class ColorCorrectionController : MonoBehaviour
 
         }
 
-        if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
-            fogControl.EnterFog(DuracionTransicion);
+        
 
         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("rainy"))
         {
@@ -808,6 +807,8 @@ public class ColorCorrectionController : MonoBehaviour
         resetIcons();
         StartCoroutine(FadeInIcon(icons[currentVol]));
 
+       
+
         string weatherIc = volumes[currentVol].gameObject.name;
 
 
@@ -819,6 +820,10 @@ public class ColorCorrectionController : MonoBehaviour
         }else{
 
         }
+
+         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
+            fogControl.EnterFog(DuracionTransicion);
+            
         PlayerPrefs.SetInt("RestartFlag", 0);
 
     }
