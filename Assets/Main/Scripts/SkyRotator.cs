@@ -8,7 +8,7 @@ public class SkyRotator : MonoBehaviour
 {
     Volume volume;
     HDRISky sky;
-    float elapsedTime=0;
+    public float elapsedTime=0;
 
     public float completeRotationDurationHours=24f;
 

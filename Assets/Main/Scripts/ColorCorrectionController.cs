@@ -284,6 +284,7 @@ public class ColorCorrectionController : MonoBehaviour
 
         resetAll();
 
+        PlayerPrefs.SetFloat("currentRotation", skyRotator.elapsedTime);
 
         PlayerPrefs.SetString("currentSeason", currentSeason);
         PlayerPrefs.SetInt("currentVol", currentVol);
@@ -771,6 +772,8 @@ public class ColorCorrectionController : MonoBehaviour
             elapsedTime = PlayerPrefs.GetFloat("elapsedTime");
             alternateVol = PlayerPrefs.GetInt("alternateVol");
             globalSlider.value = elapsedTime;
+
+            skyRotator.elapsedTime=PlayerPrefs.GetFloat("currentRotation");
         }
 
 
@@ -823,7 +826,7 @@ public class ColorCorrectionController : MonoBehaviour
 
          if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
             fogControl.EnterFog(DuracionTransicion);
-            
+
         PlayerPrefs.SetInt("RestartFlag", 0);
 
     }
