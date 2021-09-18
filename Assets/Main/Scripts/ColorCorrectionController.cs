@@ -736,13 +736,8 @@ public class ColorCorrectionController : MonoBehaviour
 
         }
 
-        Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
-        if ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false)
-        {
-            StartCoroutine(FadeInMariposas());
-        }
-        else
-            StartCoroutine(FadeOutMariposas());
+        
+
 
         List<int> listaPosiblesWeathers = new List<int>();
         for (int ix = 0; ix < volumes.Count; ix = ix + 2)
@@ -826,6 +821,14 @@ public class ColorCorrectionController : MonoBehaviour
 
          if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
             fogControl.EnterFog(DuracionTransicion);
+
+            Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
+        if ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false)
+        {
+            StartCoroutine(FadeInMariposas());
+        }
+        else
+            StartCoroutine(FadeOutMariposas());
 
         PlayerPrefs.SetInt("RestartFlag", 0);
 
