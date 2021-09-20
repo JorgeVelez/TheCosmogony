@@ -193,6 +193,10 @@ public class ColorCorrectionController : MonoBehaviour
                 PlayerPrefs.SetInt(temporada + "_Mariposas", value ? 1 : 0);
             });
 
+if(temporada==PlayerPrefs.GetString("firstSeason")){
+                season.Find("firstSeason").GetComponent<Toggle>().isOn=true;
+                            Debug.Log("temporada guardada "+temporada);
+                            
             season.Find("firstSeason").GetComponent<Toggle>().onValueChanged.AddListener((value) =>
             {
                 PlayerPrefs.SetString("firstSeason", temporada);
@@ -201,9 +205,7 @@ public class ColorCorrectionController : MonoBehaviour
 
             });
 
-            if(temporada==PlayerPrefs.GetString("firstSeason")){
-                season.Find("firstSeason").GetComponent<Toggle>().isOn=true;
-                            Debug.Log("temporada guardada "+temporada);
+            
 
             }
 
