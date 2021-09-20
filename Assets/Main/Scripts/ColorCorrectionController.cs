@@ -200,9 +200,10 @@ public class ColorCorrectionController : MonoBehaviour
                 {
                     for (int i = 0; i < seasons.Count; i++)
                     {
+                        if(season.Find("firstSeason").GetComponent<Toggle>()!=seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>())
                         seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().isOn = false;
                     }
-                    season.Find("firstSeason").GetComponent<Toggle>().isOn = true;
+                    
 
                     PlayerPrefs.SetString("firstSeason", temporada);
 
