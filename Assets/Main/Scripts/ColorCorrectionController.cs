@@ -761,20 +761,10 @@ public class ColorCorrectionController : MonoBehaviour
 
         for (int i = 0; i < seasons.Count; i++)
         {
-
-
-
-            if (seasonPrefab.transform.parent.Find(seasons[i]).name == PlayerPrefs.GetString("firstSeason"))
-            {
-                seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().Select();
-                seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().isOn = false;
-                seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().isOn = true;
-
-                seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().group.NotifyToggleOn(seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>());
-                Debug.Log("temporada guardada 2 " + seasons[i]);
-            }
-
+            seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().isOn = false;
         }
+        seasonPrefab.transform.parent.Find(currentSeason + "/firstSeason").GetComponent<Toggle>().isOn = true;
+
 
         if (PlayerPrefs.GetInt("RestartFlag") == 1)
         {
