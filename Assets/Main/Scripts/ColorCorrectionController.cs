@@ -202,10 +202,11 @@ public class ColorCorrectionController : MonoBehaviour
 
             season.Find("firstSeason").GetComponent<Toggle>().onValueChanged.AddListener((value) =>
             {
+                if(value){
                 PlayerPrefs.SetString("firstSeason", temporada);
 
                 Debug.Log("click " + temporada);
-
+                }
             });
 
 
