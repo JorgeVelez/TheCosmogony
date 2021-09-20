@@ -196,16 +196,17 @@ public class ColorCorrectionController : MonoBehaviour
 
             if (temporada == PlayerPrefs.GetString("firstSeason"))
             {
-                season.Find("firstSeason").GetComponent<Toggle>().SetIsOnWithoutNotify (true);
+                season.Find("firstSeason").GetComponent<Toggle>().SetIsOnWithoutNotify(true);
                 Debug.Log("temporada guardada " + temporada);
             }
 
             season.Find("firstSeason").GetComponent<Toggle>().onValueChanged.AddListener((value) =>
             {
-                if(value){
-                PlayerPrefs.SetString("firstSeason", temporada);
+                if (value)
+                {
+                    PlayerPrefs.SetString("firstSeason", temporada);
 
-                Debug.Log("click " + temporada);
+                    Debug.Log("click " + temporada);
                 }
             });
 
@@ -758,15 +759,18 @@ public class ColorCorrectionController : MonoBehaviour
 
         Debug.Log("currentSeason " + currentSeason);
 
-         for (int i = 0; i < seasons.Count; i++)
+        for (int i = 0; i < seasons.Count; i++)
         {
 
 
 
             if (seasonPrefab.transform.parent.Find(seasons[i]).name == PlayerPrefs.GetString("firstSeason"))
             {
-                seasonPrefab.transform.parent.Find(seasons[i]+"/firstSeason").GetComponent<Toggle>().isOn=true;
-                 seasonPrefab.transform.parent.Find(seasons[i]+"/firstSeason").GetComponent<Toggle>().group.NotifyToggleOn(seasonPrefab.transform.parent.Find(seasons[i]+"/firstSeason").GetComponent<Toggle>());
+                seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().Select();
+                seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().isOn = false;
+                seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().isOn = true;
+
+                seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().group.NotifyToggleOn(seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>());
                 Debug.Log("temporada guardada 2 " + seasons[i]);
             }
 
