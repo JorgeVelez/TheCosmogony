@@ -170,10 +170,11 @@ public class ColorCorrectionController : MonoBehaviour
         //GENERATE SEASON CONFIGS
         ///////////////////////////////////////////////////////////
 
-         if (!PlayerPrefs.HasKey( "firstSeason")){
-                 PlayerPrefs.SetString("firstSeason",seasons[2] );
+        if (!PlayerPrefs.HasKey("firstSeason"))
+        {
+            PlayerPrefs.SetString("firstSeason", seasons[2]);
             Debug.Log("no exuxtia override season");
-         }
+        }
 
         for (int i = 0; i < seasons.Count; i++)
         {
@@ -193,21 +194,22 @@ public class ColorCorrectionController : MonoBehaviour
                 PlayerPrefs.SetInt(temporada + "_Mariposas", value ? 1 : 0);
             });
 
-if(temporada==PlayerPrefs.GetString("firstSeason")){
-                season.Find("firstSeason").GetComponent<Toggle>().isOn=true;
-                            Debug.Log("temporada guardada "+temporada);
-                            
+            if (temporada == PlayerPrefs.GetString("firstSeason"))
+            {
+                season.Find("firstSeason").GetComponent<Toggle>().isOn = true;
+                Debug.Log("temporada guardada " + temporada);
+            }
+
             season.Find("firstSeason").GetComponent<Toggle>().onValueChanged.AddListener((value) =>
             {
                 PlayerPrefs.SetString("firstSeason", temporada);
 
-                            Debug.Log("click "+temporada);
+                Debug.Log("click " + temporada);
 
             });
 
-            
 
-            }
+
 
             for (int ix = 0; ix < volumes.Count; ix = ix + 2)
             {
@@ -753,13 +755,13 @@ if(temporada==PlayerPrefs.GetString("firstSeason")){
 
         currentSeason = PlayerPrefs.GetString("firstSeason");
 
-                                    Debug.Log("currentSeason "+currentSeason);
+        Debug.Log("currentSeason " + currentSeason);
 
 
         if (PlayerPrefs.GetInt("RestartFlag") == 1)
         {
             currentSeason = PlayerPrefs.GetString("currentSeason");
-                                    Debug.Log("override restart "+currentSeason);
+            Debug.Log("override restart " + currentSeason);
 
         }
 
