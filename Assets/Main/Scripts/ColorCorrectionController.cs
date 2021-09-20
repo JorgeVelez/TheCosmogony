@@ -194,16 +194,15 @@ public class ColorCorrectionController : MonoBehaviour
                 PlayerPrefs.SetInt(temporada + "_Mariposas", value ? 1 : 0);
             });
 
-            if (temporada == PlayerPrefs.GetString("firstSeason"))
-            {
-                season.Find("firstSeason").GetComponent<Toggle>().SetIsOnWithoutNotify(true);
-                Debug.Log("temporada guardada " + temporada);
-            }
-
             season.Find("firstSeason").GetComponent<Toggle>().onValueChanged.AddListener((value) =>
             {
                 if (value)
                 {
+                    for (int i = 0; i < seasons.Count; i++)
+                    {
+                        seasonPrefab.transform.parent.Find(seasons[i] + "/firstSeason").GetComponent<Toggle>().isOn = false;
+                    }
+
                     PlayerPrefs.SetString("firstSeason", temporada);
 
                     Debug.Log("click " + temporada);
