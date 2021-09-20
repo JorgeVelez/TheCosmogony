@@ -766,6 +766,7 @@ public class ColorCorrectionController : MonoBehaviour
             if (seasonPrefab.transform.parent.Find(seasons[i]).name == PlayerPrefs.GetString("firstSeason"))
             {
                 seasonPrefab.transform.parent.Find(seasons[i]+"/firstSeason").GetComponent<Toggle>().isOn=true;
+                 seasonPrefab.transform.parent.Find(seasons[i]+"/firstSeason").GetComponent<Toggle>().group.NotifyToggleOn(seasonPrefab.transform.parent.Find(seasons[i]+"/firstSeason").GetComponent<Toggle>());
                 Debug.Log("temporada guardada 2 " + seasons[i]);
             }
 
