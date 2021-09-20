@@ -170,11 +170,17 @@ public class ColorCorrectionController : MonoBehaviour
         //GENERATE SEASON CONFIGS
         ///////////////////////////////////////////////////////////
 
+         if (!PlayerPrefs.HasKey( "firstSeason")){
+                 PlayerPrefs.SetString("firstSeason",seasons[2] );
+            Debug.Log("no exuxtia override season");
+         }
+
         for (int i = 0; i < seasons.Count; i++)
         {
             RectTransform season = Instantiate(seasonPrefab, seasonPrefab.transform.parent).GetComponent<RectTransform>();
             season.gameObject.SetActive(true);
             string temporada = seasons[i];
+            season.gameObject.name = temporada;
             season.Find("Label").GetComponent<Text>().text = temporada;
 
             if (PlayerPrefs.HasKey(temporada + "_Mariposas"))
@@ -186,6 +192,20 @@ public class ColorCorrectionController : MonoBehaviour
             {
                 PlayerPrefs.SetInt(temporada + "_Mariposas", value ? 1 : 0);
             });
+
+            season.Find("firstSeason").GetComponent<Toggle>().onValueChanged.AddListener((value) =>
+            {
+                PlayerPrefs.SetString("firstSeason", temporada);
+
+                            Debug.Log("click "+temporada);
+
+            });
+
+            if(temporada==PlayerPrefs.GetString("firstSeason")){
+                season.Find("firstSeason").GetComponent<Toggle>().isOn=true;
+                            Debug.Log("temporada guardada "+temporada);
+
+            }
 
             for (int ix = 0; ix < volumes.Count; ix = ix + 2)
             {
@@ -729,14 +749,19 @@ public class ColorCorrectionController : MonoBehaviour
         seasonsSlider.transform.Find("Value").GetComponent<Text>().text = daysCounter + "/" + DuracionSeason;
 
 
-        currentSeason = seasons[UnityEngine.Random.Range(0, seasons.Count)];
+        currentSeason = PlayerPrefs.GetString("firstSeason");
+
+                                    Debug.Log("currentSeason "+currentSeason);
+
+
         if (PlayerPrefs.GetInt("RestartFlag") == 1)
         {
             currentSeason = PlayerPrefs.GetString("currentSeason");
+                                    Debug.Log("override restart "+currentSeason);
 
         }
 
-        
+
 
 
         List<int> listaPosiblesWeathers = new List<int>();
@@ -768,7 +793,7 @@ public class ColorCorrectionController : MonoBehaviour
             alternateVol = PlayerPrefs.GetInt("alternateVol");
             globalSlider.value = elapsedTime;
 
-            skyRotator.elapsedTime=PlayerPrefs.GetFloat("currentRotation");
+            skyRotator.elapsedTime = PlayerPrefs.GetFloat("currentRotation");
         }
 
 
@@ -787,7 +812,7 @@ public class ColorCorrectionController : MonoBehaviour
 
         }
 
-        
+
 
         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("rainy"))
         {
@@ -805,24 +830,26 @@ public class ColorCorrectionController : MonoBehaviour
         resetIcons();
         StartCoroutine(FadeInIcon(icons[currentVol]));
 
-       
+
 
         string weatherIc = volumes[currentVol].gameObject.name;
 
 
-        if (alternateVol>0)
+        if (alternateVol > 0)
         {
-                    resetIcons();
+            resetIcons();
 
-                StartCoroutine(FadeInIcon(icons[alternateVol], .01f));
-        }else{
+            StartCoroutine(FadeInIcon(icons[alternateVol], .01f));
+        }
+        else
+        {
 
         }
 
-         if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
+        if (volumes[currentVol * 2].gameObject.name.ToLower().Contains("foggy"))
             fogControl.EnterFog(DuracionTransicion);
 
-            Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
+        Debug.Log("lleva mariposas: " + ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false));
         if ((PlayerPrefs.GetInt(currentSeason + "_Mariposas") == 1) ? true : false)
         {
             StartCoroutine(FadeInMariposas());
